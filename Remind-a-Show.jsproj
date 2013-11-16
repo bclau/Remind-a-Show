@@ -47,9 +47,8 @@
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <TargetPlatformVersion>8.0</TargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    
-    <PackageCertificateKeyFile>Remind-a-Show_TemporaryKey.pfx</PackageCertificateKeyFile>
-    
+    <PackageCertificateKeyFile>Remind-a-Show_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>1291FA24CF0C615DAC4CA92E4BD8FEDDAE1735AF</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
@@ -63,6 +62,10 @@
     <Content Include="js\data.js" />
     <Content Include="js\default.js" />
     <Content Include="js\navigator.js" />
+    <Content Include="js\dataClass.js" />
+    <Content Include="js\dataSource.js" />
+    <None Include="Remind-a-Show_StoreKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="pages\itemDetail\itemDetail.css" />
     <Content Include="pages\itemDetail\itemDetail.html" />
     <Content Include="pages\itemDetail\itemDetail.js" />
@@ -73,11 +76,10 @@
     <Content Include="pages\groupedItems\groupedItems.html" />
     <Content Include="pages\groupedItems\groupedItems.js" />
     <Content Include="default.html" />
-    
     <None Include="Remind-a-Show_TemporaryKey.pfx" />
-    
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="LiveSDKHTML, Version=5.5" />
     <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
