@@ -22,15 +22,19 @@
     var show = WinJS.Class.define(
 
         // constructor
-        function(name, pictures) {
-            this.name = name;
+        function(title, pictures) {
+            this.title = title;
             this.pictures = pictures;
+            this.picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY7h4+cp/AAhpA3h+ANDKAAAAAElFTkSuQmCC";
+        
             this.episodes = [];
         },
         // instance members
         {
             addEpisode: function (episode) {
                 this.episodes.push(episode);
+            },
+            addCategory: function (category) {
             }
         },
         // static members
@@ -59,6 +63,7 @@
 
 
     WinJS.Namespace.define("App", {
+        Episode: episode,
         Show: show,
         Category: category
     });

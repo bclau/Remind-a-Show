@@ -26,7 +26,7 @@
             listView.addEventListener("keydown", function (e) {
                 if (appView.value !== appViewState.snapped && e.ctrlKey && e.keyCode === WinJS.Utilities.Key.g && e.altKey) {
                     var data = listView.itemDataSource.list.getAt(listView.currentItem.index);
-                    this.navigateToGroup(data.group.key);
+                    this.navigateToGroup(data.category);
                     e.preventDefault();
                     e.stopImmediatePropagation();
                 }

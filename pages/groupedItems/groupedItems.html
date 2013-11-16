@@ -19,7 +19,7 @@
     <div class="headertemplate" data-win-control="WinJS.Binding.Template">
         <button class="group-header win-type-x-large win-type-interactive" data-win-bind="groupKey: key"
             onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">
-            <span class="group-title win-type-ellipsis" data-win-bind="textContent: title"></span>
+            <span class="group-title win-type-ellipsis" data-win-bind="textContent: name"></span>
             <span class="group-chevron"></span>
         </button>
     </div>
@@ -28,7 +28,6 @@
             <img class="item-image" src="#" data-win-bind="src: backgroundImage; alt: title" />
             <div class="item-overlay">
                 <h4 class="item-title" data-win-bind="textContent: title"></h4>
-                <h6 class="item-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h6>
             </div>
         </div>
     </div>

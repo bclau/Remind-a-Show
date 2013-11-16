@@ -1,33 +1,46 @@
 ﻿(function () {
-    
-    Show = WinJS.App.Show;
-    Epiode = WinJS.App.Episode;
 
-    var categories = ["Favorites", "Watched", "Comedy"];
+    var Show = App.Show;
+    var Episode = App.Episode;
 
-    var shows = {
+    var _categories = {
+        "Favorites": {
+            name: "Favorites",
+            shows: []
+        },
+        "Watched": {
+            name: "Watched",
+            shows: []
+        },
+        "Comedy": {
+            name: "Comedy",
+            shows: []
+        },
+    };
+
+    var _raw_shows = {
         Favorites: [
             {
-                name: "The Big Bang Theory"
+                title: "The Big Bang Theory",
             },
             {
-                name: "How I Met Your Mother"
+                title: "How I Met Your Mother"
             }],
 
         Watched: [
             {
-                name: "The Big Bang Theory"
+                title: "The Big Bang Theory"
             }],
 
         Comedy: [
             {
-                name: "How I Met Your Mother"
+                title: "How I Met Your Mother"
             }]
 
     }
 
 
-    var episodes = {
+    var _raw_episodes = {
         "How I Met Your Mother":
             //seasons
             [
@@ -56,20 +69,53 @@
 
     }
 
-    var getCategories = function () {
-        return categories;
+    _shows = [];
+
+    var _getCategories = function () {
+        return _categories;
     }
 
-    var getShowByName = function (name) {
-
-
-
-        return show;
+    var _getShowsByCategory = function (category) {
+        return _categories[category];
     }
 
-    WinJS.Namespace.define("DataSource", {
-        getCategories: getCategories,
-        getShowByName: getShowByName
+    var _getShows = function () {
+        return _shows;
+    }
+
+    var _getShowByName = function (name) {
+        var new_show = new Show(name)
+
+        var seasons = _raw_episodes[name];
+        for (season in seasons) {
+            episodes = seasons[season];
+            for (episode in episodes) {
+                new_show.addEpisode(new Episode(season, episode,
+                    episodes[episode].name, episodes[episode].description))
+
+            }
+        }
+
+        return new_show;
+    }
+
+
+    for (category in _raw_shows) {
+        raw_show_list = _raw_shows[category];
+        for (i in raw_show_list) {
+            temp_show = _getShowByName(raw_show_list[i].title);
+            temp_show.category = category;
+
+            _categories[category].shows.push(temp_show);
+            _shows.push(temp_show);
+        }
+    }
+
+
+    WinJS.Namespace.define("App.DataSource", {
+        getCategories: _getCategories,
+        getShowsByCategory: _getShowsByCategory,
+        getShows: _getShows
     });
 
 
