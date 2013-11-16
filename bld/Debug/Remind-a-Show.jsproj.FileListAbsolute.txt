@@ -1,0 +1,13 @@
+E:\mobile hackaton\Remind-a-Show\bin\Debug\resources.pri
+E:\mobile hackaton\Remind-a-Show\bin\Debug\AppxManifest.xml
+E:\mobile hackaton\Remind-a-Show\bin\Debug\Remind-a-Show.build.appxrecipe
+E:\mobile hackaton\Remind-a-Show\bld\Debug\priconfig.xml
+E:\mobile hackaton\Remind-a-Show\bld\Debug\layout.resfiles
+E:\mobile hackaton\Remind-a-Show\bld\Debug\resources.resfiles
+E:\mobile hackaton\Remind-a-Show\bld\Debug\pri.resfiles
+E:\mobile hackaton\Remind-a-Show\bld\Debug\LanguageQualifiers.txt
+E:\mobile hackaton\Remind-a-Show\bld\Debug\ProjectArchitectures.txt
+E:\mobile hackaton\Remind-a-Show\bld\Debug\priconfig.xml.intermediate
+E:\mobile hackaton\Remind-a-Show\bld\Debug\layout.resfiles.intermediate
+E:\mobile hackaton\Remind-a-Show\bld\Debug\resources.resfiles.intermediate
+E:\mobile hackaton\Remind-a-Show\bld\Debug\pri.resfiles.intermediate

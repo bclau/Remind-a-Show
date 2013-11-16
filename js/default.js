@@ -4,7 +4,8 @@
     "use strict";
 
     WinJS.Binding.optimizeBindingReferences = true;
-
+    var fbUser = {};
+    WinJS.Namespace.define("App.fb", fbUser);
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;
@@ -81,10 +82,21 @@
         // suspended, call args.setPromise().
         app.sessionState.history = nav.history;
     };
+    WinJS.Application.onsettings = function (e) {
 
+        if ( !App.fb.name ) {
+            e.detail.applicationcommands = { "connect": { title: "Connect to Facebook", href: "/html/FacebookConnect.html" } };
+            WinJS.UI.SettingsFlyout.populateSettings(e);
+            return;
+        }
+        e.detail.applicationcommands = { "connect": { title: "Connect to Facebook", href: "/html/FacebookConnect2.html" , name: "aa"} };
+        WinJS.UI.SettingsFlyout.populateSettings(e);
+
+
+    };
     app.start();
 
 
-    doClickAdd();
+    //  doClickAdd();
 
 })();

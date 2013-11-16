@@ -1,4 +1,7 @@
-﻿(function () {
+﻿
+var myFriends = null;
+window.FB = FBWinJS;
+(function () {
     "use strict";
 
     var dataSource = WinJS.DataSource;
@@ -10,6 +13,7 @@
 
     // TODO: Replace the data with your real data.
     // You can add data from asynchronous sources whenever it becomes available.
+
     generateSampleData().forEach(function (item) {
         list.push(item);
     });
@@ -54,6 +58,27 @@
             }
         }
     }
+    // Friends
+    function getFriends() {
+        // Check for and use cached data
+        if (myFriends)
+            return;
+
+       // logResponse("[getFriends] get friend data.");
+        // Use the Graph API to get friends
+        FB.api('/me/television', { fields: 'category, name', limit: '50' }, function (response) {
+            if (!response || response.error) {
+              //  logResponse("Error fetching friend data.");
+            } else {
+                myFriends = response.data;
+                return myFriends;
+
+                //  logResponse(myFriends);
+//                        displayFriends(myFriends);
+            }
+        });
+    }
+
 
     // Returns an array of sample data that can be added to the application's
     // data list. 
@@ -79,7 +104,7 @@
             }
         }
         */
-
+  
         // Each of these sample groups must have a unique key to be displayed
         // separately.
         var sampleGroups = [
@@ -90,6 +115,11 @@
             { key: "group5", title: "Group Title: 5", subtitle: "Group Subtitle: 5", backgroundImage: mediumGray, description: groupDescription },
             { key: "group6", title: "Group Title: 6", subtitle: "Group Subtitle: 6", backgroundImage: darkGray, description: groupDescription }
         ];
+
+        var friends = getFriends();
+        for (var i in friends) {
+            sampleGroups[i]["title"] = friends[i];
+        }
 
         // Each of these sample items should have a reference to a particular
         // group.
