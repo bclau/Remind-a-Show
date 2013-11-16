@@ -15,8 +15,7 @@ function logResponse(response) {
 function logoutClicked() {
     FB.setAccessToken('');
     fbUser.name = "";
-       
-    
+    window.focus();
 }
 
 // AUTHENTICATION

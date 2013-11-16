@@ -25,7 +25,7 @@
         </header>
         <div class="content" aria-label="Main content" role="main">
             <article>
-                <div>
+                <div id="test">
                     <header>
                         <h2 class="item-title"></h2>
                         <h4 class="item-subtitle"></h4>
@@ -35,6 +35,16 @@
                 </div>
             </article>
         </div>
+         <div id="scenarioAppBar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdAdd',label:'Add to favourites',icon:'add',section:'global',tooltip:'Add item'}">
+        </button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdRemove',label:'Remove from favourites',icon:'remove',section:'global',tooltip:'Remove item'}">
+        </button>
+        <hr data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'appBarSeparator',type:'separator',section:'global'}" />
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdDelete',label:'Delete',icon:'delete',section:'global',tooltip:'Delete item'}">
+        </button>
+        </div>
     </div>
+     
 </body>
 </html>
