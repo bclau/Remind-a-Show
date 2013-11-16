@@ -82,7 +82,6 @@ window.FB = FBWinJS;
             }
         });
     }
-    
 
     // Returns an array of sample data that can be added to the application's
     // data list. 
