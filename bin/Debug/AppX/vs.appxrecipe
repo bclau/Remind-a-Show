@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>DEATHSTAR</Machine>
+    <WindowsUser>gerry</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <RegisteredManifestChecksum>E727EAFC3AEC6B07F1F583B0FA551F604620D7C8AEC8F3E0F81D08379F29E5DF</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>11169DebreczeniGergoPFA.Remind-a-Show_1.0.0.0_neutral__1sa21bqbffg64</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>11169DebreczeniGergoPFA.Remind-a-Show_1sa21bqbffg64!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>11169DebreczeniGergoPFA.Remind-a-Show</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=D91CFA2B-571A-4CA5-B828-541B2B833889</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="E:\mobile hackaton\Remind-a-Show\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-11-16T18:37:48.586</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Live\v5.5\Windows Store app HTML\Redist\Debug\neutral\LiveSDKHTML\js\wl.js">
+      <PackagePath>LiveSDKHTML\js\wl.js</PackagePath>
+      <Modified>2013-10-14T16:18:58.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\css\base.css">
+      <PackagePath>css\base.css</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\css\default.css">
+      <PackagePath>css\default.css</PackagePath>
+      <Modified>2013-11-16T17:15:03.850</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\css\jquery.mobile-1.2.0.css">
+      <PackagePath>css\jquery.mobile-1.2.0.css</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\sample-utils\sample-utils.css">
+      <PackagePath>sample-utils\sample-utils.css</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\itemDetail\itemDetail.css">
+      <PackagePath>pages\itemDetail\itemDetail.css</PackagePath>
+      <Modified>2013-11-16T10:27:56.008</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\groupDetail\groupDetail.css">
+      <PackagePath>pages\groupDetail\groupDetail.css</PackagePath>
+      <Modified>2013-11-16T10:27:55.945</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\groupedItems\groupedItems.css">
+      <PackagePath>pages\groupedItems\groupedItems.css</PackagePath>
+      <Modified>2013-11-16T10:27:55.975</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\css\images\ajax-loader.gif">
+      <PackagePath>css\images\ajax-loader.gif</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meal.gif">
+      <PackagePath>images\meal.gif</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\css\images\icons-18-black.png">
+      <PackagePath>css\images\icons-18-black.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\css\images\icons-18-white.png">
+      <PackagePath>css\images\icons-18-white.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\css\images\icons-36-black.png">
+      <PackagePath>css\images\icons-36-black.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\css\images\icons-36-white.png">
+      <PackagePath>css\images\icons-36-white.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\action-eating.png">
+      <PackagePath>images\action-eating.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\action-location.png">
+      <PackagePath>images\action-location.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\action-people.png">
+      <PackagePath>images\action-people.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\fblogin.png">
+      <PackagePath>images\fblogin.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\logo.png">
+      <PackagePath>images\logo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\cheeseburger%402x.png">
+      <PackagePath>images\meals\cheeseburger%402x.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\cheeseburger-full.png">
+      <PackagePath>images\meals\cheeseburger-full.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\cheeseburger.png">
+      <PackagePath>images\meals\cheeseburger.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\chinese%402x.png">
+      <PackagePath>images\meals\chinese%402x.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\chinese-full.png">
+      <PackagePath>images\meals\chinese-full.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\chinese.png">
+      <PackagePath>images\meals\chinese.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\french%402x.png">
+      <PackagePath>images\meals\french%402x.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\french-full.png">
+      <PackagePath>images\meals\french-full.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\french.png">
+      <PackagePath>images\meals\french.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\hotdog%402x.png">
+      <PackagePath>images\meals\hotdog%402x.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\hotdog-full.png">
+      <PackagePath>images\meals\hotdog-full.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\hotdog.png">
+      <PackagePath>images\meals\hotdog.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\indian%402x.png">
+      <PackagePath>images\meals\indian%402x.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\indian-full.png">
+      <PackagePath>images\meals\indian-full.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\indian.png">
+      <PackagePath>images\meals\indian.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\italian%402x.png">
+      <PackagePath>images\meals\italian%402x.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\italian-full.png">
+      <PackagePath>images\meals\italian-full.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\italian.png">
+      <PackagePath>images\meals\italian.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\pizza%402x.png">
+      <PackagePath>images\meals\pizza%402x.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\pizza-full.png">
+      <PackagePath>images\meals\pizza-full.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\pizza.png">
+      <PackagePath>images\meals\pizza.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\thai%402x.png">
+      <PackagePath>images\meals\thai%402x.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\thai-full.png">
+      <PackagePath>images\meals\thai-full.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\meals\thai.png">
+      <PackagePath>images\meals\thai.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\microsoft-sdk.png">
+      <PackagePath>images\microsoft-sdk.png</PackagePath>
+      <Modified>2013-03-20T02:28:11.484</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\placeholder-sdk.png">
+      <PackagePath>images\placeholder-sdk.png</PackagePath>
+      <Modified>2013-03-20T02:28:11.484</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\scrumptious_logo.png">
+      <PackagePath>images\scrumptious_logo.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\scrumptious_logo_large.png">
+      <PackagePath>images\scrumptious_logo_large.png</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\smalllogo.png">
+      <PackagePath>images\smalllogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\smallTile-sdk.png">
+      <PackagePath>images\smallTile-sdk.png</PackagePath>
+      <Modified>2013-03-20T02:28:11.484</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\splash-sdk.png">
+      <PackagePath>images\splash-sdk.png</PackagePath>
+      <Modified>2013-03-20T02:28:11.484</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\splashscreen.png">
+      <PackagePath>images\splashscreen.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\squareTile-sdk.png">
+      <PackagePath>images\squareTile-sdk.png</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\storeLogo-sdk.png">
+      <PackagePath>images\storeLogo-sdk.png</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\storelogo.png">
+      <PackagePath>images\storelogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\tile-sdk.png">
+      <PackagePath>images\tile-sdk.png</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\images\windows-sdk.png">
+      <PackagePath>images\windows-sdk.png</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\html\FacebookConnect2.html">
+      <PackagePath>html\FacebookConnect2.html</PackagePath>
+      <Modified>2013-11-16T19:17:07.461</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\html\FacebookConnect.html">
+      <PackagePath>html\FacebookConnect.html</PackagePath>
+      <Modified>2013-11-16T19:13:50.532</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\sample-utils\footer.html">
+      <PackagePath>sample-utils\footer.html</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\sample-utils\header.html">
+      <PackagePath>sample-utils\header.html</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\sample-utils\scenario-select.html">
+      <PackagePath>sample-utils\scenario-select.html</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\itemDetail\itemDetail.html">
+      <PackagePath>pages\itemDetail\itemDetail.html</PackagePath>
+      <Modified>2013-11-16T10:27:56.016</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\groupDetail\groupDetail.html">
+      <PackagePath>pages\groupDetail\groupDetail.html</PackagePath>
+      <Modified>2013-11-16T10:27:55.954</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\groupedItems\groupedItems.html">
+      <PackagePath>pages\groupedItems\groupedItems.html</PackagePath>
+      <Modified>2013-11-16T17:44:09.110</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\default.html">
+      <PackagePath>default.html</PackagePath>
+      <Modified>2013-11-16T17:42:39.731</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\1_BasicBinding.js">
+      <PackagePath>js\1_BasicBinding.js</PackagePath>
+      <Modified>2013-11-16T19:08:55.309</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\data.js">
+      <PackagePath>js\data.js</PackagePath>
+      <Modified>2013-11-16T15:41:58.546</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\default.js">
+      <PackagePath>js\default.js</PackagePath>
+      <Modified>2013-11-16T19:29:43.236</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\fb.js">
+      <PackagePath>js\fb.js</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\jquery-1.8.2-win8-1.0.js">
+      <PackagePath>js\jquery-1.8.2-win8-1.0.js</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\jquery.mobile-1.2.0.js">
+      <PackagePath>js\jquery.mobile-1.2.0.js</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\main.js">
+      <PackagePath>js\main.js</PackagePath>
+      <Modified>2013-11-16T19:27:37.469</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\mustache.js">
+      <PackagePath>js\mustache.js</PackagePath>
+      <Modified>2013-04-17T11:34:42.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\navigator.js">
+      <PackagePath>js\navigator.js</PackagePath>
+      <Modified>2013-11-16T10:27:55.929</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\dataClass.js">
+      <PackagePath>js\dataClass.js</PackagePath>
+      <Modified>2013-11-16T13:53:26.322</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\js\dataSource.js">
+      <PackagePath>js\dataSource.js</PackagePath>
+      <Modified>2013-11-16T13:53:26.353</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\sample-utils\sample-utils.js">
+      <PackagePath>sample-utils\sample-utils.js</PackagePath>
+      <Modified>2013-03-20T02:28:11.500</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\itemDetail\itemDetail.js">
+      <PackagePath>pages\itemDetail\itemDetail.js</PackagePath>
+      <Modified>2013-11-16T10:27:56.025</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\groupDetail\groupDetail.js">
+      <PackagePath>pages\groupDetail\groupDetail.js</PackagePath>
+      <Modified>2013-11-16T10:27:55.966</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\pages\groupedItems\groupedItems.js">
+      <PackagePath>pages\groupedItems\groupedItems.js</PackagePath>
+      <Modified>2013-11-16T10:27:56.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="E:\mobile hackaton\Remind-a-Show\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2013-11-16T18:37:48.277</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows\v8.0\ExtensionSDKs\Microsoft.WinJS.1.0\1.0\">
+      <Name>Microsoft.WinJS.1.0</Name>
+      <Version>1.0.9200.20602</Version>
+      <Architecture>Neutral</Architecture>
+      <FrameworkIdentity>Name=Microsoft.WinJS.1.0, MinVersion=1.0.9200.20602</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows\v8.0\ExtensionSDKs\Microsoft.WinJS.1.0\1.0\Microsoft.WinJS.1.0.appx</AppxLocation>
+    </ResolvedSDKReference>
+  </ItemGroup>
+</Project>
