@@ -1,7 +1,11 @@
 ﻿(function () {
 
+    var FBUtils = App.fb.utils;
     var Show = App.Show;
     var Episode = App.Episode;
+
+    var retrievedFromFacebook = false;
+    var subscribers = [];
 
     var _categories = {
         "Favorites": {
@@ -11,11 +15,7 @@
         "Watched": {
             name: "Watched",
             shows: []
-        },
-        "Comedy": {
-            name: "Comedy",
-            shows: []
-        },
+        }
     };
 
     var _raw_shows = {
@@ -30,13 +30,7 @@
         Watched: [
             {
                 title: "The Big Bang Theory"
-            }],
-
-        Comedy: [
-            {
-                title: "How I Met Your Mother"
             }]
-
     }
 
 
@@ -111,11 +105,43 @@
         }
     }
 
+    var _subscribeListForAdd = function(list) {
+        subscribers.push(list);
+
+        for(var i in _shows) {
+            list.push(_shows[i]);
+        }
+    }
+
+    var _updateShowsFromFacebook = function () {
+        if(retrievedFromFacebook)
+            return;
+
+        FBUtils.getShows(function (fb_show) {
+            new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
+            new_show.category = fb_show.genre;
+
+            if (!_categories[fb_show.genre])
+                _categories[fb_show.genre] = {
+                    name: fb_show.genre,
+                    shows: []
+                };
+
+            _categories[fb_show.genre].shows.push(temp_show);
+            _shows.push(temp_show);
+
+            for (var i in subscribers) {
+                subscribers[i].push(new_show);
+            }
+        });
+    }
 
     WinJS.Namespace.define("App.DataSource", {
         getCategories: _getCategories,
         getShowsByCategory: _getShowsByCategory,
-        getShows: _getShows
+        getShows: _getShows,
+        subscribeListForAdd: _subscribeListForAdd,
+        updateShowsFromFacebook: _updateShowsFromFacebook
     });
 
 

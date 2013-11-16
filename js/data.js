@@ -15,9 +15,9 @@ window.FB = FBWinJS;
     // TODO: Replace the data with your real data.
     // You can add data from asynchronous sources whenever it becomes available.
 
-    generateSampleData().forEach(function (item) {
-        list.push(item);
-    });
+    dataSource.subscribeListForAdd(list);//.forEach(function (item) {
+    //    list.push(item);
+    //});
 
     WinJS.Namespace.define("Data", {
         items: groupedItems,

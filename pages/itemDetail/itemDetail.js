@@ -8,7 +8,7 @@
             var item = options && options.item ? Data.resolveItemReference(options.item) : Data.items.getAt(0);
             element.querySelector(".titlearea .pagetitle").textContent = item.category;
             element.querySelector("article .item-title").textContent = item.title;
-            element.querySelector("article .item-image").src = item.backgroundImage;
+            element.querySelector("article .item-image").src = item.picture;
             element.querySelector("article .item-image").alt = item.title;
             element.querySelector("article .item-content").innerHTML = item.description;
             element.querySelector(".content").focus();
