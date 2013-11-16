@@ -136,8 +136,7 @@ $( document ).delegate("#meals", "pageinit", function() {
 function logoutClicked() {
     FB.setAccessToken('');
     fbUser.name = "";
-       
-    
+    window.focus();
 }
 
 // AUTHENTICATION
