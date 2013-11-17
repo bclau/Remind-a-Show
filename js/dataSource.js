@@ -119,11 +119,14 @@
 
         FBUtils.getShows(function (fb_show) {
             new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
-            // new_show.category = fb_show.genre;
+
+           // new_show.category = fb_show.genre;
+
             if (fb_show.genre == undefined) {
                 fb_show.genre = "Undefined";
             }
             new_show.category = fb_show.genre;
+
             if (!_categories[fb_show.genre])
                 _categories[fb_show.genre] = {
                     name: fb_show.genre,
