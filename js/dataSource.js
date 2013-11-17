@@ -248,11 +248,18 @@
 
         WinJS.log && WinJS.log(tileXml.getXml(), "sample", "status");
     }
+    function _getShow(name) {
+        var shows = _getShows();
+        for (var i in shows)
+            if (shows[i].title == name)
+                return shows[i];
+    }
 
     WinJS.Namespace.define("App.DataSource", {
         getCategories: _getCategories,
         getShowsByCategory: _getShowsByCategory,
         getShows: _getShows,
+        getShow: _getShow,
         addShowToFavourites: _addShowToFavourites,
         subscribeListForAdd: _subscribeListForAdd,
         updateShowsFromFacebook: _updateShowsFromFacebook
