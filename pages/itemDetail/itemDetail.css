@@ -1,6 +1,7 @@
 ﻿.itemdetailpage .content {
     -ms-grid-row: 1;
     -ms-grid-row-span: 2;
+    -ms-grid-column-span: 2;
     display: block;
     height: 100%;
     overflow-x: auto;

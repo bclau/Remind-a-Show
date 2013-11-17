@@ -13,8 +13,34 @@
             element.querySelector("article .item-image").alt = item.title;
             element.querySelector("article .item-content").innerHTML = item.description;
             element.querySelector(".content").focus();
-             
-        }
+
+            var list = element.querySelector(".itemslist");
+  
+            for (var i in item.episodes) {
+                var ep = item.episodes[i];
+                var temp = document.createElement("div");
+                var t = document.createElement("span");
+                t.innerText = "Season: " + ep.season + "  Episode: " + ep.number;
+                temp.appendChild(t);
+
+                t = document.createElement("span");
+                t.innerText = "Name: " + ep.name;
+                temp.appendChild(t);
+
+                t = document.createElement("div");
+                t.innerText = ep.description;
+                temp.appendChild(t);
+
+                t = document.createElement("a");
+                t.href = ep.link;
+                t.innerText = "Click here to watch it!";
+                temp.appendChild(t);
+
+                list.appendChild(temp);
+            }
+
+        },
+
     });
 
     function initAppBar() {

@@ -24,17 +24,30 @@
             </h1>
         </header>
         <div class="content" aria-label="Main content" role="main">
-            <article>
-                <div id="test">
-                    <header>
-                        <h2 class="item-title"></h2>
-                        <h4 class="item-subtitle"></h4>
-                    </header>
-                    <img class="item-image" src="#" />
-                    <div class="item-content"></div>
-                </div>
-            </article>
+            <div style="float: left; position:relative; width:40%;" >
+                <article>
+                    <div id="test">
+                        <header>
+                            <h2 class="item-title"></h2>
+                            <h4 class="item-subtitle"></h4>
+                        </header>
+                        <img class="item-image" src="#" />
+                        <div class="item-content"></div>
+                    </div>
+                </article>
+            </div>
+            
+            <div style="float:right;display: inline-block; position:relative; width:60%;">
+                <article>
+                    <div class="itemslist">
+
+                    </div>
+                </article>
+
+            </div>
+            
         </div>
+
          <div id="scenarioAppBar" data-win-control="WinJS.UI.AppBar">
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdAdd',label:'Add to favourites',icon:'add',section:'global',tooltip:'Add item'}">
         </button>

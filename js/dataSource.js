@@ -87,7 +87,7 @@
         for (season in seasons) {
             episodes = seasons[season];
             for (episode in episodes) {
-                new_show.addEpisode(new Episode(season, episode,
+                new_show.addEpisode(new Episode(season+1, episode+1,
                     episodes[episode].name, episodes[episode].description))
 
             }
