@@ -105,47 +105,63 @@
         }
     }
 
-    var _subscribeListForAdd = function(list) {
+    var _subscribeListForAdd = function (list) {
         subscribers.push(list);
 
-        for(var i in _shows) {
+        for (var i in _shows) {
             list.push(_shows[i]);
         }
     }
 
     var _updateShowsFromFacebook = function () {
-        if(retrievedFromFacebook)
+        if (retrievedFromFacebook)
             return;
 
         FBUtils.getShows(function (fb_show) {
             new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
-           // new_show.category = fb_show.genre;
+            // new_show.category = fb_show.genre;
             if (fb_show.genre == undefined) {
                 fb_show.genre = "Undefined";
             }
             new_show.category = fb_show.genre;
-                if (!_categories[fb_show.genre])
-                    _categories[fb_show.genre] = {
-                        name: fb_show.genre,
-                        shows: []
-                    };
+            if (!_categories[fb_show.genre])
+                _categories[fb_show.genre] = {
+                    name: fb_show.genre,
+                    shows: []
+                };
 
-                _categories[fb_show.genre].shows.push(new_show);
-            
-                _shows.push(new_show);
-            
+            _categories[fb_show.genre].shows.push(new_show);
+
+            _shows.push(new_show);
+
             for (var i in subscribers) {
                 subscribers[i].push(new_show);
             }
             var a = 2;
         });
-      
+
+    }
+
+    var _addShowToFavourites = function (name) {
+        var shows = _getShows();
+
+        for (i in shows) {
+            if (shows[i].title == name) {
+                temp_show = new Show(shows[i].title, shows[i].description, shows[i].picture);
+                _categories["Favorites"].shows.push(temp_show);
+                for (var i in subscribers) {
+                    subscribers[i].push(temp_show);
+                }
+                return;
+            }
+        }
     }
 
     WinJS.Namespace.define("App.DataSource", {
         getCategories: _getCategories,
         getShowsByCategory: _getShowsByCategory,
         getShows: _getShows,
+        addShowToFavourites: _addShowToFavourites,
         subscribeListForAdd: _subscribeListForAdd,
         updateShowsFromFacebook: _updateShowsFromFacebook
     });

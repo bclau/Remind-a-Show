@@ -37,7 +37,8 @@
     function doClickAdd() {
         
         var ghead = document.getElementsByTagName('h2');
-        var ts =ghead[0].innerText;
+        var ts = ghead[0].innerText;
+        App.DataSource.addShowToFavourites(ts);
         
 
     }
@@ -46,6 +47,7 @@
     {
         var ghead = document.getElementsByTagName('h2');
         var ts = ghead[0].innerText;
+
     }
 
 })();
