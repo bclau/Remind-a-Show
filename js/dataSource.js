@@ -24,16 +24,19 @@
         Favorites: [
             {
                 title: "Skins",
+                description: "Skins is awesome",
                 picture: "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-prn2/984248_10151592483837226_2077003679_n.jpg"
             },
             {
                 title: "Suits",
+                description: "Suits is awesome",
                 picture: "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn1/12948_529633363782965_750167263_n.jpg"
             }],
 
         Watched: [
             {
                 title: "Breaking Bad",
+                description: "Breaking Bad is awesome",
                 picture: "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/579118_10151923176067722_1094067595_n.png"
             }]
     }
