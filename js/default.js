@@ -9,47 +9,6 @@
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;
 
-
-    function doClickAdd() {
-        WL.init();
-
-        WL.login({
-            scope: "wl.events_create"
-        }).then(
-                  function (response) {
-                      WL.api({
-                          path: "me/events",
-                          method: "POST",
-                          body: {
-                              name: "Family Dinner",
-                              description: "Dinner with Cynthia's family",
-                              start_time: "2013-11-16T01:30:00-08:00",
-                              end_time: "2013-11-16T03:00:00-08:00",
-                              location: "Coho Vineyard and Winery, 123 Main St., Redmond WA 19532",
-                              is_all_day_event: "false",
-                              availability: "busy",
-                              visibility: "public"
-                          }
-                      }).then(
-                          function (response) {
-                              document.getElementById("resultDiv").innerHTML =
-                                  "ID: " + response.id +
-                                  "<br/>Name: " + response.name;
-                          },
-                          function (responseFailed) {
-                              document.getElementById("infoArea").innerText =
-                                  "Error calling API: " + responseFailed.error.message;
-                          }
-                      );
-                  },
-                  function (responseFailed) {
-                      document.getElementById("infoArea").innerText =
-                          "Error signing in: " + responseFailed.error_description;
-                  }
-              );
-
-    }
-
     app.addEventListener("activated", function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
             if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {

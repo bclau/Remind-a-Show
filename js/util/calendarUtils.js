@@ -3,7 +3,7 @@
 
     WL.init();
 
-    function addEvent(name, description, start_time, end_time) {
+    var _addEvent = function(name, description, start_time, end_time) {
         WL.login({
             scope: "wl.events_create"
         }).then(
@@ -42,7 +42,7 @@
     }
 
     WinJS.Namespace.define("App.Calendar", {
-        addEvent: addEvent
+        addEvent: _addEvent
     });
 
 

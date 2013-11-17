@@ -118,7 +118,9 @@
     <Content Include="js\navigator.js" />
     <Content Include="js\dataClass.js" />
     <Content Include="js\dataSource.js" />
+    <Content Include="js\util\calendarUtils.js" />
     <Content Include="js\util\facebookUtils.js" />
+    <Content Include="js\util\tvrageUtils.js" />
     <Content Include="sample-utils\footer.html" />
     <Content Include="sample-utils\header.html" />
     <Content Include="sample-utils\sample-utils.css" />

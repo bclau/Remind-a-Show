@@ -1,5 +1,7 @@
 ﻿(function () {
 
+    var calendar = App.Calendar;
+    var tvrageUtils = App.tvrage.utils;
     var FBUtils = App.fb.utils;
     var Show = App.Show;
     var Episode = App.Episode;
@@ -120,8 +122,6 @@
         FBUtils.getShows(function (fb_show) {
             new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
 
-           // new_show.category = fb_show.genre;
-
             if (fb_show.genre == undefined) {
                 fb_show.genre = "Undefined";
             }
@@ -131,16 +131,25 @@
                 _categories[fb_show.genre] = {
                     name: fb_show.genre,
                     shows: []
-                };
+                }
 
             _categories[fb_show.genre].shows.push(new_show);
-
             _shows.push(new_show);
 
             for (var i in subscribers) {
                 subscribers[i].push(new_show);
             }
-            var a = 2;
+
+            tvrageUtils.getEpisodes(fb_show.name, function (episodes) {
+                for (var i in episodes) {
+                    var ep = episodes[i];
+                    new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, ""));
+
+                    if ((ep.date - Date.now()) >= 0)
+                        calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.date);
+                }
+            });
+
         });
 
     }
@@ -151,6 +160,7 @@
         for (i in shows) {
             if (shows[i].title == name) {
                 temp_show = new Show(shows[i].title, shows[i].description, shows[i].picture);
+                temp_show.category = "Favorites";
                 _categories["Favorites"].shows.push(temp_show);
                 for (var i in subscribers) {
                     subscribers[i].push(temp_show);
