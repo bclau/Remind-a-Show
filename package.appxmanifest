@@ -4,7 +4,7 @@
   <Properties>
     <DisplayName>Remind-a-Show</DisplayName>
     <PublisherDisplayName>Debreczeni Gergo PFA</PublisherDisplayName>
-    <Logo>images\storelogo.png</Logo>
+    <Logo>images\storeLogo-sdk.png</Logo>
   </Properties>
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="Remind-a-Show" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="Remind-a-Show" ForegroundText="light" BackgroundColor="#464646">
-        <DefaultTile ShowName="allLogos" />
-        <SplashScreen Image="images\splashscreen.png" />
+      <VisualElements DisplayName="Remind-a-Show" Logo="images\logo.jpg" SmallLogo="images\smalllogo.png" Description="Remind-a-Show" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" WideLogo="images\WideLogo.jpg" />
+        <SplashScreen Image="images\splash-sdk.png" />
       </VisualElements>
     </Application>
   </Applications>
