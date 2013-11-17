@@ -22,6 +22,8 @@
                 var t = document.createElement("span");
                 t.innerText = "Season: " + ep.season + "  Episode: " + ep.number;
                 temp.appendChild(t);
+                t = document.createElement("br");
+                temp.appendChild(t);
 
                 t = document.createElement("span");
                 t.innerText = "Name: " + ep.name;

@@ -40,7 +40,7 @@
 
 
     var _raw_episodes = {
-        "How I Met Your Mother":
+        "Suits":
             //seasons
             [
                 //episodes
@@ -53,7 +53,7 @@
 
             ],
 
-        "The Big Bang Theory":
+        "Breaking Bad":
             //seasons
             [
                 //episodes
@@ -124,7 +124,7 @@
             return;
 
         FBUtils.getShows(function (fb_show) {
-            new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
+            var new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
 
             if (fb_show.genre == undefined) {
                 fb_show.genre = "Undefined";
