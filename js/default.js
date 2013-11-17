@@ -11,6 +11,7 @@
 
     app.addEventListener("activated", function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
+
             if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
                 // TODO: This application has been newly launched. Initialize
                 // your application here.
@@ -31,7 +32,15 @@
                 }
             }));
         }
-    });
+     else if (args.detail.kind === activation.ActivationKind.search) {
+         
+         var title =args.detail.queryText;
+         var item = App.DataSource.getShow(title);
+         nav.navigate("/pages/itemDetail/itemDetail.html", { item: Data.getItemReference(item) });
+    }
+    }
+    )
+    ;
 
     app.oncheckpoint = function (args) {
         // TODO: This application is about to be suspended. Save any state

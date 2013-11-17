@@ -23,15 +23,18 @@
     var _raw_shows = {
         Favorites: [
             {
-                title: "The Big Bang Theory",
+                title: "Skins",
+                picture: "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-prn2/984248_10151592483837226_2077003679_n.jpg"
             },
             {
-                title: "How I Met Your Mother"
+                title: "Suits",
+                picture: "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn1/12948_529633363782965_750167263_n.jpg"
             }],
 
         Watched: [
             {
-                title: "The Big Bang Theory"
+                title: "Breaking Bad",
+                picture: "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/579118_10151923176067722_1094067595_n.png"
             }]
     }
 
@@ -153,21 +156,7 @@
 
         });
 
-
-        var roamingSettings = Windows.Storage.ApplicationData.current.roamingSettings;
-        var settingName = "exampleCompositeSetting";
-
-        var settingName1 = "one";
-        var settingName2 = "hello";
-
-        function compositeSettingsWriteCompositeSetting() {
-            var composite = new Windows.Storage.ApplicationDataCompositeValue();
-            composite[settingName1] = 1; // example value
-            composite[settingName2] = "world"; // example value
-            roamingSettings.values[settingName] = composite;
-
-            compositeSettingsDisplayOutput();
-        }
+        sendTileTextNotification("Succesfully synced with facebook.");
     }
 
     var _addShowToFavourites = function (name) {
@@ -181,12 +170,12 @@
                 for (var i in subscribers) {
                     subscribers[i].push(temp_show);
                 }
-                sendTileTextNotification(temp_show.title);
+                sendTileTextNotification(temp_show.title + " added to favourites.");
                 return;
             }
         }
     }
-    function sendTileTextNotification(showName) {
+    function sendTileTextNotification(text) {
         // Note: This sample contains an additional project, NotificationsExtensions.
         // NotificationsExtensions exposes an object model for creating notifications, but you can also modify the xml
         // of the notification directly. See the additional function sendTileTextNotificationWithXmlManipulation to see how
@@ -195,7 +184,7 @@
 
         // create the wide template
         var tileContent = NotificationsExtensions.TileContent.TileContentFactory.createTileWideText03();
-        tileContent.textHeadingWrap.text =showName+ " added to favourites."  ;
+        tileContent.textHeadingWrap.text =text  ;
 
         // Users can resize tiles to square or wide.
         // Apps can choose to include only square assets (meaning the app's tile can never be wide), or
@@ -207,7 +196,7 @@
 
         // create the square template and attach it to the wide template
         var squareTileContent = NotificationsExtensions.TileContent.TileContentFactory.createTileSquareText04();
-        squareTileContent.textBodyWrap.text = showName + "was added to favourites.";
+        squareTileContent.textBodyWrap.text = text;
         tileContent.squareContent = squareTileContent;
 
         // send the notification
@@ -245,11 +234,18 @@
 
         WinJS.log && WinJS.log(tileXml.getXml(), "sample", "status");
     }
+    function _getShow(name) {
+        var shows = _getShows();
+        for (var i in shows)
+            if (shows[i].title == name)
+                return shows[i];
+    }
 
     WinJS.Namespace.define("App.DataSource", {
         getCategories: _getCategories,
         getShowsByCategory: _getShowsByCategory,
         getShows: _getShows,
+        getShow: _getShow,
         addShowToFavourites: _addShowToFavourites,
         subscribeListForAdd: _subscribeListForAdd,
         updateShowsFromFacebook: _updateShowsFromFacebook

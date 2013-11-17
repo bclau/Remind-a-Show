@@ -34,11 +34,18 @@
             this.title = title;
             this.description = description;
 
-            if(picture)
+            if (picture)
                 this.picture = picture;
             else
-                this.picture = grayTiles[Math.floor(Math.random() * 3)];
-            //this.picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY7h4+cp/AAhpA3h+ANDKAAAAAElFTkSuQmCC";
+                //this.picture = grayTiles[Math.floor(Math.random() * 3)];
+            if (title == "Skins")
+                    this.picture = "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-prn2/984248_10151592483837226_2077003679_n.jpg";
+            if(title == "Suits")
+                this.picture = "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn1/12948_529633363782965_750167263_n.jpg";
+            if(title == "Breaking Bad")
+                this.picture = "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/579118_10151923176067722_1094067595_n.png";
+             if(!this.picture)
+                this.picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY7h4+cp/AAhpA3h+ANDKAAAAAElFTkSuQmCC";
         
             this.episodes = [];
         },

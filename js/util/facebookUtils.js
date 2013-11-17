@@ -5,6 +5,7 @@
 
     var fbUser = {};
     WinJS.Namespace.define("App.fb", fbUser);
+    fbUser = App.fb;
 
     var myShows = null;
 
