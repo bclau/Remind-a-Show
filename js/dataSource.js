@@ -23,15 +23,18 @@
     var _raw_shows = {
         Favorites: [
             {
-                title: "The Big Bang Theory",
+                title: "Skins",
+                picture: "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-prn2/984248_10151592483837226_2077003679_n.jpg"
             },
             {
-                title: "How I Met Your Mother"
+                title: "Suits",
+                picture: "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn1/12948_529633363782965_750167263_n.jpg"
             }],
 
         Watched: [
             {
-                title: "The Big Bang Theory"
+                title: "Breaking Bad",
+                picture: "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/579118_10151923176067722_1094067595_n.png"
             }]
     }
 
