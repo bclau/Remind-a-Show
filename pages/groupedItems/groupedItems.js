@@ -16,6 +16,7 @@
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
+            
             var listView = element.querySelector(".groupeditemslist").winControl;
             listView.groupHeaderTemplate = element.querySelector(".headertemplate");
             listView.itemTemplate = element.querySelector(".itemtemplate");
@@ -34,7 +35,8 @@
 
             this._initializeLayout(listView, appView.value);
             listView.element.focus();
-          var  suggestionList = App.DataSource.getShows();
+            var suggestionList = App.DataSource.getShows();
+            Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = true;
             Windows.ApplicationModel.Search.SearchPane.getForCurrentView().onsuggestionsrequested = function (eventObject) {
                 var queryText = eventObject.queryText, suggestionRequest = eventObject.request;
                 var query = queryText.toLowerCase();
