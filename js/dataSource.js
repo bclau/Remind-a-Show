@@ -119,21 +119,27 @@
 
         FBUtils.getShows(function (fb_show) {
             new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
+           // new_show.category = fb_show.genre;
+            if (fb_show.genre == undefined) {
+                fb_show.genre = "Undefined";
+            }
             new_show.category = fb_show.genre;
+                if (!_categories[fb_show.genre])
+                    _categories[fb_show.genre] = {
+                        name: fb_show.genre,
+                        shows: []
+                    };
 
-            if (!_categories[fb_show.genre])
-                _categories[fb_show.genre] = {
-                    name: fb_show.genre,
-                    shows: []
-                };
-
-            _categories[fb_show.genre].shows.push(temp_show);
-            _shows.push(temp_show);
-
+                _categories[fb_show.genre].shows.push(new_show);
+            
+                _shows.push(new_show);
+            
             for (var i in subscribers) {
                 subscribers[i].push(new_show);
             }
+            var a = 2;
         });
+      
     }
 
     WinJS.Namespace.define("App.DataSource", {

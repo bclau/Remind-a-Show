@@ -22,8 +22,9 @@
     var show = WinJS.Class.define(
 
         // constructor
-        function(title, picture) {
+        function(title, description, picture) {
             this.title = title;
+            this.description = description;
             this.picture = picture;
             //this.picture = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY7h4+cp/AAhpA3h+ANDKAAAAAElFTkSuQmCC";
         

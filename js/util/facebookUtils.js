@@ -1,6 +1,9 @@
-﻿(function () {
-    "use strict";
+﻿var fbUser = {};
+WinJS.Namespace.define("App.fb", fbUser);
+var fbUser = App.fb;
 
+(function () {
+    "use strict";
     var FB = FBWinJS;
     var myShows = null;
 

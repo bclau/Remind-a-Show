@@ -4,8 +4,7 @@
     "use strict";
 
     WinJS.Binding.optimizeBindingReferences = true;
-    var fbUser = {};
-    WinJS.Namespace.define("App.fb", fbUser);
+
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;

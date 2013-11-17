@@ -1,5 +1,5 @@
 
-var FBUtils = App.fb.utils
+var FBUtils = App.fb.utils;
 var fbUser = App.fb;
 window.FB = FBWinJS;
 
@@ -28,6 +28,7 @@ function loginClicked() {
         } else {
             if (result.access_token) {
                 App.DataSource.updateShowsFromFacebook();
+                FBUtils.updateUserInfo();
                 //window.location.hash = '#menu';
             }
         }

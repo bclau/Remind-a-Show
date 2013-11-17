@@ -5,11 +5,15 @@ window.FB = FBWinJS;
     "use strict";
     var dataSource = App.DataSource;
     var list = new WinJS.Binding.List();
-    var categories = dataSource.getCategories();
+    //var categories = dataSource.getCategories();
 
     var groupedItems = list.createGrouped(
-        function groupKeySelector(item) { return item.category; },
-        function groupDataSelector(item) { return categories[item.category]; }
+        function groupKeySelector(item) {
+            return item.category;
+        },
+        function groupDataSelector(item) {
+            return dataSource.getCategories()[item.category];
+        }
     );
 
     // TODO: Replace the data with your real data.
@@ -42,7 +46,7 @@ window.FB = FBWinJS;
 
     // Get the unique group corresponding to the provided group key.
     function resolveGroupReference(key) {
-        return categories[key];
+        return dataSource.getCategories()[key];
         /*
         for (var i = 0; i < groupedItems.groups.length; i++) {
             if (groupedItems.groups.getAt(i).key === key) {
