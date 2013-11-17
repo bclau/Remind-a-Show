@@ -156,21 +156,7 @@
 
         });
 
-
-        var roamingSettings = Windows.Storage.ApplicationData.current.roamingSettings;
-        var settingName = "exampleCompositeSetting";
-
-        var settingName1 = "one";
-        var settingName2 = "hello";
-
-        function compositeSettingsWriteCompositeSetting() {
-            var composite = new Windows.Storage.ApplicationDataCompositeValue();
-            composite[settingName1] = 1; // example value
-            composite[settingName2] = "world"; // example value
-            roamingSettings.values[settingName] = composite;
-
-            compositeSettingsDisplayOutput();
-        }
+        sendTileTextNotification("Succesfully synced with facebook.");
     }
 
     var _addShowToFavourites = function (name) {
@@ -184,12 +170,12 @@
                 for (var i in subscribers) {
                     subscribers[i].push(temp_show);
                 }
-                sendTileTextNotification(temp_show.title);
+                sendTileTextNotification(temp_show.title + " added to favourites.");
                 return;
             }
         }
     }
-    function sendTileTextNotification(showName) {
+    function sendTileTextNotification(text) {
         // Note: This sample contains an additional project, NotificationsExtensions.
         // NotificationsExtensions exposes an object model for creating notifications, but you can also modify the xml
         // of the notification directly. See the additional function sendTileTextNotificationWithXmlManipulation to see how
@@ -198,7 +184,7 @@
 
         // create the wide template
         var tileContent = NotificationsExtensions.TileContent.TileContentFactory.createTileWideText03();
-        tileContent.textHeadingWrap.text =showName+ " added to favourites."  ;
+        tileContent.textHeadingWrap.text =text  ;
 
         // Users can resize tiles to square or wide.
         // Apps can choose to include only square assets (meaning the app's tile can never be wide), or
@@ -210,7 +196,7 @@
 
         // create the square template and attach it to the wide template
         var squareTileContent = NotificationsExtensions.TileContent.TileContentFactory.createTileSquareText04();
-        squareTileContent.textBodyWrap.text = showName + "was added to favourites.";
+        squareTileContent.textBodyWrap.text = text;
         tileContent.squareContent = squareTileContent;
 
         // send the notification
