@@ -16,7 +16,7 @@
                               name: name,
                               description: description,
                               start_time: start_time, //"2013-11-16T01:30:00-08:00",
-                              end_time: new Date(Date.parse(start_time)+60), //"2013-11-16T03:00:00-08:00",
+                             // end_time: end_time, //"2013-11-16T03:00:00-08:00",
                               //location: "Coho Vineyard and Winery, 123 Main St., Redmond WA 19532",
                               is_all_day_event: "false",
                               availability: "busy",
@@ -24,9 +24,10 @@
                           }
                       }).then(
                           function (response) {
-                            
+                              var a = 2;
                           },
                           function (responseFailed) {
+                              var a = 2;
                              
                           }
                       );
