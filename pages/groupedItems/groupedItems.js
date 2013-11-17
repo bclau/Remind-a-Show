@@ -63,6 +63,7 @@
                 // remove suggestion handling when unloading this page so that it does not conflict with other scenarios.
                 // This should not be added to your app.
                 Windows.ApplicationModel.Search.SearchPane.getForCurrentView().onsuggestionsrequested = null;
+                Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = false;
             },
 
         // This function updates the page layout in response to viewState changes.
