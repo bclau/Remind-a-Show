@@ -112,6 +112,7 @@
     <Content Include="images\windows-sdk.png" />
     <Content Include="js\1_BasicBinding.js" />
     <Content Include="js\data.js" />
+    <Content Include="js\date.format.js" />
     <Content Include="js\default.js" />
     <Content Include="js\fb.js" />
     <Content Include="js\jquery-1.8.2-win8-1.0.js" />
@@ -149,6 +150,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="NotificationsExtensions\NotificationsExtensions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment

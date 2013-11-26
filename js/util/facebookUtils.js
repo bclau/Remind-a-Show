@@ -7,6 +7,9 @@
     WinJS.Namespace.define("App.fb", fbUser);
     fbUser = App.fb;
 
+    var roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
+    var fbKeyFile = "fbKeyFile.txt";
+
     var myShows = null;
 
     FB.options({
@@ -14,12 +17,37 @@
     });
 
     // For logging responses
-    var logResponse = function(response) {
+    var logResponse = function (response) {
         if (typeof console !== 'undefined')
             console.log('The response was', response);
     }
 
-    var askForPermissions = function(scope, callback) {
+    var removeFbKey = function () {
+        roamingFolder.
+                getFileAsync(fbKeyFile).then(function (file) {
+    if (file == null) {
+        var v = new Windows.UI.Popups.MessageDialog("File was deleted");
+        v.showAsync();
+    } else {
+        file.deleteAsync();
+    }
+});
+    }
+
+    var saveFbKey = function (key) {
+
+
+        roamingFolder.createFileAsync(fbKeyFile, Windows.Storage.CreationCollisionOption.replaceExisting)
+            .then(function (file) {
+                return Windows.Storage.FileIO.writeTextAsync(file, key);
+            }).done(function () {
+
+            });
+    }
+
+
+
+    var askForPermissions = function (scope, callback) {
         var redirectUri = 'https://www.facebook.com/connect/login_success.html',
             loginUrl = FB.getLoginUrl({ scope: scope });
         try {
@@ -45,11 +73,49 @@
                         console.log('error: ' + qs.error + ' : ' + qs.error_description);
                         return;
                     }
+                     
+                    //get 2month lifetime code
 
-                    // set it as the default access token.
-                    FB.setAccessToken(qs.access_token);
+                    var clientId = "408764209210253";
+                    var clientSecret = "d30a63511ec4584729312bf197d1b1b7";
+                    var shortToken = qs.access_token;
 
-                    callback(null, qs);
+                    var baseUrl = "https://graph.facebook.com/oauth/access_token?" +
+                                    "&client_id=" + clientId +
+                                    "&client_secret=" + clientSecret +
+                                    "&grant_type=fb_exchange_token" +
+                                    "&fb_exchange_token=" + shortToken;
+                    WinJS.xhr({
+                        url: baseUrl 
+                    }).done(function (result) {
+
+
+                        //var lines = result.responseText.trim().split('\n');
+                        var body = result.responseText.split('&');
+                        var key = "";
+                        var value = "";
+                        for (key in body) {
+                          var  split = body[key].split('=');
+                            if (split.length === 2) {
+                                value = split[1];
+                                if (!isNaN(value)) {
+                                    result[split[0]] = parseInt(value);
+                                } else {
+                                    result[split[0]] = value;
+                                }
+                            }
+                        }
+                        
+                        FB.setAccessToken(result["access_token"]);
+                        callback(null, result["access_token"]);
+                        
+                    },
+     function (result) {
+         //errors and stuff.
+         console.log(result);
+
+     });
+                   
 
                 }, function error(err) {
                     console.log('Error Number: ' + err.number);
@@ -63,7 +129,7 @@
         }
     }
 
-    var _extractQuerystring = function(a) {
+    var _extractQuerystring = function (a) {
         if (a == "") return {};
         var b = {};
         for (var i = 0; i < a.length; ++i) {
@@ -124,7 +190,7 @@
 
     */
 
-    var updateUserInfo = function(response) {
+    var updateUserInfo = function (response) {
         FB.api('/me',
           { fields: "name,first_name,picture" },
           function (response) {
@@ -139,9 +205,9 @@
           });
     }
 
-    
+
     // tv shows
-    var getShows = function(callback) {
+    var getShows = function (callback) {
         // Check for and use cached data
         if (myShows)
             return;
@@ -175,7 +241,9 @@
     WinJS.Namespace.define("App.fb.utils", {
         getShows: getShows,
         askForPermissions: askForPermissions,
-        updateUserInfo: updateUserInfo
+        updateUserInfo: updateUserInfo,
+        saveFbKey: saveFbKey,
+        removeFbKey: removeFbKey
     });
 
 

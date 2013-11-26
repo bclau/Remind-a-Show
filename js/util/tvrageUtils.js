@@ -9,13 +9,16 @@
         var parts = string_episode.split('^');
         var se = parts[0].split('x');
         var parsed_date = Date.parse(parts[2]);
-        var date = parts[2].split('/');
+        var date = parts[3] || parts[2];
+        if(!parts[3])
+            var date = parts[2].split('/');
 
         return {
             season: se[0],
             episode: se[1],
             name: parts[1],
-            date: new Date(date[2], months[date[0]], date[1])
+            date: parts[3] ? date : new Date(date[2], months[date[0]], date[1])
+           // date: new Date(date[2], months[date[0]], date[1])
         }
     }
 
@@ -33,12 +36,15 @@
 
             var episodes = [];
             var ep = response_obj['Latest Episode'];
-            episodes.push(_splitEpisode(ep));
-
-            ep = response_obj['Next Episode'];
-            if (ep)
+            if(ep)
                 episodes.push(_splitEpisode(ep));
 
+            ep = response_obj['Next Episode'];
+
+            if (ep) {
+                ep += "^" + response_obj['RFC3339'];
+                episodes.push(_splitEpisode(ep));
+            }
             callback(episodes);
         },
         function (result) {

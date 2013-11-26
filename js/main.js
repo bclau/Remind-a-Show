@@ -3,6 +3,8 @@ var FBUtils = App.fb.utils;
 var fbUser = App.fb;
 window.FB = FBWinJS;
 
+var roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
+var fbKeyFile = "fbKeyFile.txt";
 
 // UTILITIES
     
@@ -15,20 +17,24 @@ function logResponse(response) {
 function logoutClicked() {
     FB.setAccessToken('');
     fbUser.name = "";
+    FBUtils.removeFbKey();
+    App.DataSource.clearShows();
+    //App.DataSource.updateShowsFromFacebook();
     window.focus();
 }
 
 // AUTHENTICATION
 function loginClicked() {
 
-    FBUtils.askForPermissions('user_about_me', function (error, result) {
+    FBUtils.askForPermissions('user_about_me', function (error, accessToken) {
         if (error) {
             console.log(error);
             return;
         } else {
-            if (result.access_token) {
+            if (accessToken) {
                 App.DataSource.updateShowsFromFacebook();
                 FBUtils.updateUserInfo();
+                FBUtils.saveFbKey(accessToken);
                 //window.location.hash = '#menu';
             }
         }

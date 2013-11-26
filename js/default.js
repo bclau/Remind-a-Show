@@ -1,13 +1,34 @@
-﻿// For an introduction to the Grid template, see the following documentation:
+﻿// For an introduction  to the Grid template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkID=232446
 (function () {
     "use strict";
 
     WinJS.Binding.optimizeBindingReferences = true;
 
+    var fbKeyFile = "fbKeyFile.txt";
+    var roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
+    var FBUtils = App.fb.utils;
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;
+
+
+    var readFbKey = function () {
+
+        roamingFolder.getFileAsync(fbKeyFile)
+            .then(function (file) {
+                return Windows.Storage.FileIO.readTextAsync(file);
+            }).done(function (fbKey) {
+                if (fbKey) {
+                    FB.setAccessToken(fbKey);
+                    App.DataSource.updateShowsFromFacebook();
+                    FBUtils.updateUserInfo();
+                }
+
+            }, function () {
+                return null;
+            });
+    }
 
     app.addEventListener("activated", function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
@@ -15,6 +36,8 @@
             if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
                 // TODO: This application has been newly launched. Initialize
                 // your application here.
+            //    FBUtils.removeFbKey();
+                readFbKey();
             } else {
                 // TODO: This application has been reactivated from suspension.
                 // Restore application state here.
@@ -32,12 +55,12 @@
                 }
             }));
         }
-     else if (args.detail.kind === activation.ActivationKind.search) {
-         
-         var title =args.detail.queryText;
-         var item = App.DataSource.getShow(title);
-         nav.navigate("/pages/itemDetail/itemDetail.html", { item: Data.getItemReference(item) });
-    }
+        else if (args.detail.kind === activation.ActivationKind.search) {
+
+            var title = args.detail.queryText;
+            var item = App.DataSource.getShow(title);
+            nav.navigate("/pages/itemDetail/itemDetail.html", { item: Data.getItemReference(item) });
+        }
     }
     )
     ;
@@ -51,19 +74,19 @@
     };
     WinJS.Application.onsettings = function (e) {
 
-        if ( !App.fb.name ) {
+        if (!App.fb.name) {
             e.detail.applicationcommands = { "connect": { title: "Connect to Facebook", href: "/html/FacebookConnect.html" } };
             WinJS.UI.SettingsFlyout.populateSettings(e);
             return;
         }
-        e.detail.applicationcommands = { "connect": { title: "Connect to Facebook", href: "/html/FacebookConnect2.html" , name: "aa"} };
+        e.detail.applicationcommands = { "connect": { title: "Connect to Facebook", href: "/html/FacebookConnect2.html", name: "aa" } };
         WinJS.UI.SettingsFlyout.populateSettings(e);
 
 
     };
 
     app.start();
-    
+
 
     //  doClickAdd();
 

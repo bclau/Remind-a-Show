@@ -152,7 +152,41 @@
                     var ep = episodes[i];
                     new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, ""));
 
-                    if ((ep.date - Date.now()) >= 0)
+                    var dateNow = Date.now();
+                    var episodeDate = ep.date;
+                    try {
+                        var q = Date.parse(ep.date);
+                        if (!q) {
+                            datum = ep.date;
+                            var utcHour = datum.split('T');
+                            if (utcHour[1].split("-").length > 1) {
+                                var hoursToChange = utcHour[1].split("-")[1];
+                                var toReplacePrefix = "-";
+                                
+                            }
+                            else {
+                                var hoursToChange = utcHour[1].split("+")[1];
+                                var toReplacePrefix = "+";
+                            }
+                            var toReplace = toReplacePrefix + hoursToChange ;
+                            if (hoursToChange.split(":")[0].length == 1) newHour = "0" + hoursToChange.split(":")[0] +":"+ hoursToChange.split(":")[1];
+                            datum = datum.replace(toReplace, toReplacePrefix + newHour );
+                            
+                            var utcDateFromIso = Date.parse(datum);
+                            episodeDate = utcDateFromIso;
+                           
+                        }
+                     //   var eppDate2 = epDate.format("isoDateTime");
+                      // var eppDate3 = epDate.format("isoUtcDateTime");
+                        //var diff = epDate - Date.now();
+                        //var diff1 = eppDate - Date.now();
+                        //var diff2 = eppDate2 - Date.now();
+                        //var diff3 = eppDate3 - Date.now();
+                    }
+                    catch (ex) {
+                        var a = ex;
+                    }
+                    if ((episodeDate - Date.now()) >= 0)
                         calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.date);
                 }
             });
@@ -162,8 +196,42 @@
         sendTileTextNotification("Succesfully synced with facebook.");
     }
 
+    var _clearShows = function () {
+
+        for (var j in subscribers) {
+            subscribers[j].length = 0;
+        }
+        for (var member in _categories) delete _categories[member];
+        
+
+        for (category in _raw_shows) {
+            raw_show_list = _raw_shows[category];
+            for (i in raw_show_list) {
+                temp_show = _getShowByName(raw_show_list[i].title);
+                temp_show.category = category;
+
+                if (!_categories[category])
+                    _categories[category] = {
+                        name: category,
+                        shows: []
+                    }
+
+                _categories[category].shows.push(temp_show);
+                _shows.push(temp_show);
+
+                for (var i in subscribers) {
+                    subscribers[i].push(temp_show);
+                }
+
+            }
+
+        }
+    }
+
     var _addShowToFavourites = function (name) {
-        var shows = _getShows();
+
+        App.Calendar.listEvents();
+        /*var shows = _getShows();
 
         for (i in shows) {
             if (shows[i].title == name) {
@@ -177,7 +245,8 @@
                 return;
             }
         }
-    }
+    */}
+
     function sendTileTextNotification(text) {
         // Note: This sample contains an additional project, NotificationsExtensions.
         // NotificationsExtensions exposes an object model for creating notifications, but you can also modify the xml
@@ -245,6 +314,7 @@
     }
 
     WinJS.Namespace.define("App.DataSource", {
+        clearShows: _clearShows,
         getCategories: _getCategories,
         getShowsByCategory: _getShowsByCategory,
         getShows: _getShows,
