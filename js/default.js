@@ -30,17 +30,39 @@
             });
     }
 
+    var testResume = function () {
+        var key = "aa";
+
+        var roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
+        var fbKeyFile = "aaa.txt";
+
+
+        roamingFolder.createFileAsync(fbKeyFile, Windows.Storage.CreationCollisionOption.replaceExisting)
+            .then(function (file) {
+                return Windows.Storage.FileIO.writeTextAsync(file, key);
+            }).done(function () {
+
+            });
+
+
+
+    }
+
     app.addEventListener("activated", function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
 
             if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
                 // TODO: This application has been newly launched. Initialize
                 // your application here.
-            //    FBUtils.removeFbKey();
+                // FBUtils.removeFbKey();
                 readFbKey();
+
             } else {
                 // TODO: This application has been reactivated from suspension.
                 // Restore application state here.
+
+
+
             }
 
             if (app.sessionState.history) {
