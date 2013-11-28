@@ -2,6 +2,7 @@
 
     var calendar = App.Calendar;
     var tvrageUtils = App.tvrage.utils;
+    var tvcomUtils = App.tvcom.utils;
     var FBUtils = App.fb.utils;
     var Show = App.Show;
     var Episode = App.Episode;
@@ -99,19 +100,10 @@
             }
         }
 
+        _get_tvrage_episodes(new_show);
+        _get_tvcom_episodes(new_show);
+
         return new_show;
-    }
-
-
-    for (category in _raw_shows) {
-        raw_show_list = _raw_shows[category];
-        for (i in raw_show_list) {
-            temp_show = _getShowByName(raw_show_list[i].title);
-            temp_show.category = category;
-
-            _categories[category].shows.push(temp_show);
-            _shows.push(temp_show);
-        }
     }
 
     var _subscribeListForAdd = function (list) {
@@ -120,6 +112,71 @@
         for (var i in _shows) {
             list.push(_shows[i]);
         }
+    }
+
+
+    var _get_tvrage_episodes = function (new_show) {
+        tvrageUtils.getEpisodes(new_show.title, function (episodes) {
+            for (var i in episodes) {
+                var ep = episodes[i];
+
+                var episodeDate = ep.startDate;
+                try {
+                    var q = Date.parse(ep.startDate);
+                    if (!q) {
+                        datum = ep.startDate;
+                        var utcHour = datum.split('T');
+                        if (utcHour[1].split("-").length > 1) {
+                            var hoursToChange = utcHour[1].split("-")[1];
+                            var toReplacePrefix = "-";
+
+                        }
+                        else {
+                            var hoursToChange = utcHour[1].split("+")[1];
+                            var toReplacePrefix = "+";
+                        }
+                        var toReplace = toReplacePrefix + hoursToChange;
+                        if (hoursToChange.split(":")[0].length == 1) newHour = "0" + hoursToChange.split(":")[0] + ":" + hoursToChange.split(":")[1];
+                        datum = datum.replace(toReplace, toReplacePrefix + newHour);
+
+                        ep.startDate = datum;
+                        var utcDateFromIso = Date.parse(datum);
+                        episodeDate = utcDateFromIso;
+                        var endDate = utcDateFromIso + parseInt(ep.runtime) * 60 * 1000;
+                        var date = new Date(endDate);
+                        endDate = date.toISOString();
+                        //var eppDate3 = episodeDate.format("isoUtcDateTime");
+
+                    }
+
+                }
+                catch (ex) {
+                    var a = ex;
+                }
+
+                ep.endDate = endDate;
+
+                if ((episodeDate - Date.now()) >= 0) {
+                    ep.showName = new_show.title;
+                    ep.description = "s" + ep.season + "e" + ep.episode + " - " + ep.name;
+                    new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, "", ep.startDate, ep.endDate));
+                    sendTileTextNotification("Succesfully synced episodes for " + new_show.title);
+                    calendar.addEvent(ep);
+
+                    //calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
+                }
+            }
+        });
+    }
+
+    var _get_tvcom_episodes = function (new_show) {
+        tvcomUtils.getEpisodes(new_show.title, function (episode) {
+            var ep = new Episode(episode.season, episode.episode, episode.name, episode.description);
+            ep.list = episode.url;
+            ep.image = episode.image;
+            new_show.addEpisode(ep);
+
+        });
     }
 
     var _updateShowsFromFacebook = function () {
@@ -147,59 +204,11 @@
                 subscribers[i].push(new_show);
             }
 
-            tvrageUtils.getEpisodes(fb_show.name, function (episodes) {
-                for (var i in episodes) {
-                    var ep = episodes[i];
+            
 
+            _get_tvrage_episodes(new_show);
+            _get_tvcom_episodes(new_show);
 
-                    var dateNow = Date.now();
-                    var episodeDate = ep.startDate;
-                    try {
-                        var q = Date.parse(ep.startDate);
-                        if (!q) {
-                            datum = ep.startDate;
-                            var utcHour = datum.split('T');
-                            if (utcHour[1].split("-").length > 1) {
-                                var hoursToChange = utcHour[1].split("-")[1];
-                                var toReplacePrefix = "-";
-
-                            }
-                            else {
-                                var hoursToChange = utcHour[1].split("+")[1];
-                                var toReplacePrefix = "+";
-                            }
-                            var toReplace = toReplacePrefix + hoursToChange;
-                            if (hoursToChange.split(":")[0].length == 1) newHour = "0" + hoursToChange.split(":")[0] + ":" + hoursToChange.split(":")[1];
-                            datum = datum.replace(toReplace, toReplacePrefix + newHour);
-
-                            ep.startDate = datum;
-                            var utcDateFromIso = Date.parse(datum);
-                            episodeDate = utcDateFromIso;
-                            var endDate = utcDateFromIso + parseInt(ep.runtime) * 60 * 1000;
-                            var date = new Date(endDate);
-                            endDate = date.toISOString();
-                            //var eppDate3 = episodeDate.format("isoUtcDateTime");
-
-                        }
-
-                    }
-                    catch (ex) {
-                        var a = ex;
-                    }
-
-                    ep.endDate = endDate;
-
-                    if ((episodeDate - Date.now()) >= 0) {
-                        ep.showName = fb_show.name;
-                        ep.description = "s" + ep.season + "e" + ep.episode + " - " + ep.name;
-                        new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, "", ep.startDate, ep.endDate));
-                        sendTileTextNotification("Succesfully synced episodes for " + new_show.title);
-                        calendar.addEvent(ep);
-
-                        //calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
-                    }
-                }
-            });
 
         });
 
@@ -371,6 +380,17 @@
         for (var i in shows)
             if (shows[i].title == name)
                 return shows[i];
+    }
+
+    for (category in _raw_shows) {
+        raw_show_list = _raw_shows[category];
+        for (i in raw_show_list) {
+            temp_show = _getShowByName(raw_show_list[i].title);
+            temp_show.category = category;
+
+            _categories[category].shows.push(temp_show);
+            _shows.push(temp_show);
+        }
     }
 
     WinJS.Namespace.define("App.DataSource", {

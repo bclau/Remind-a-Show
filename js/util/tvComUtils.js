@@ -22,11 +22,14 @@
 
             var episodeNode, title_cont, airing_info_cont, se_parts, se_air_parts;
             var image_link, title, url, season, episode, air_date, description;
-            for (var i = 0, child_count = episodes.children.length; i < child_count; i++) {
+            for (var i = 0, child_count = episodes.children.length - 1; i < child_count; i++) {
                 episodeNode = episodes.children[i];
                 title_cont = episodeNode.getElementsByClassName(_title_class_name)[0];
-                airing_info_cont = episodeNode.getElementsByClassName(_airing_class_name)[0];
 
+                if (!title_cont.firstElementChild)
+                    continue;
+
+                airing_info_cont = episodeNode.getElementsByClassName(_airing_class_name)[0];
                 se_air_parts = airing_info_cont.innerHTML.trim().split('-');
                 se_parts = se_air_parts[0].trim().split(":");
 
@@ -39,6 +42,15 @@
                 air_date = se_air_parts[1].trim();
                 description = episodeNode.getElementsByClassName(_description_class_name)[0].innerHTML;
 
+
+                callback({
+                    season: season,
+                    episode: episode,
+                    name: title,
+                    air_date: air_date,
+                    description: description,
+                    image: image_link,
+                    url: url });
             }
 
 

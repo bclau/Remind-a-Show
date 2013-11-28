@@ -17,7 +17,6 @@
             element.querySelector("article .item-content").innerHTML = item.description;
             element.querySelector(".content").focus();
 
-
             var list = element.querySelector(".itemslist");
   
             for (var i in item.episodes) {
@@ -34,12 +33,18 @@
                 temp.appendChild(t);
 
                 t = document.createElement("div");
-                t.innerText = ep.description;
+                t.innerHTML = ep.description;
+                temp.appendChild(t);
+
+                t = document.createElement("br");
                 temp.appendChild(t);
 
                 t = document.createElement("a");
                 t.href = ep.link;
                 t.innerText = "Click here to watch it!";
+                temp.appendChild(t);
+
+                t = document.createElement("hr");
                 temp.appendChild(t);
 
                 list.appendChild(temp);

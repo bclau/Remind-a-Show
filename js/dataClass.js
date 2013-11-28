@@ -70,11 +70,9 @@
             this.season = season;
             this.number = number;
             this.name = name;
-            this.description = description;
-            this.link = "http://www.youtube.com/watch?v=Y9zte8wU3-s";
             this.startDate = startDate;
             this.endDate = endDate;
-            
+            this.description = description || "";
         },
         // instance members
         {
