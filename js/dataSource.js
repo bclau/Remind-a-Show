@@ -83,7 +83,7 @@
 
     var _getShows = function () {
         return _shows;
-        
+
     }
 
     var _getShowByName = function (name) {
@@ -93,7 +93,7 @@
         for (season in seasons) {
             episodes = seasons[season];
             for (episode in episodes) {
-                new_show.addEpisode(new Episode(season+1, episode+1,
+                new_show.addEpisode(new Episode(season + 1, episode + 1,
                     episodes[episode].name, episodes[episode].description))
 
             }
@@ -150,7 +150,7 @@
             tvrageUtils.getEpisodes(fb_show.name, function (episodes) {
                 for (var i in episodes) {
                     var ep = episodes[i];
-                    new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, ""));
+
 
                     var dateNow = Date.now();
                     var episodeDate = ep.startDate;
@@ -162,16 +162,17 @@
                             if (utcHour[1].split("-").length > 1) {
                                 var hoursToChange = utcHour[1].split("-")[1];
                                 var toReplacePrefix = "-";
-                                
+
                             }
                             else {
                                 var hoursToChange = utcHour[1].split("+")[1];
                                 var toReplacePrefix = "+";
                             }
-                            var toReplace = toReplacePrefix + hoursToChange ;
-                            if (hoursToChange.split(":")[0].length == 1) newHour = "0" + hoursToChange.split(":")[0] +":"+ hoursToChange.split(":")[1];
-                            datum = datum.replace(toReplace, toReplacePrefix + newHour );
-                            
+                            var toReplace = toReplacePrefix + hoursToChange;
+                            if (hoursToChange.split(":")[0].length == 1) newHour = "0" + hoursToChange.split(":")[0] + ":" + hoursToChange.split(":")[1];
+                            datum = datum.replace(toReplace, toReplacePrefix + newHour);
+
+                            ep.startDate = datum;
                             var utcDateFromIso = Date.parse(datum);
                             episodeDate = utcDateFromIso;
                             var endDate = utcDateFromIso + parseInt(ep.runtime) * 60 * 1000;
@@ -187,10 +188,14 @@
                     }
 
                     ep.endDate = endDate;
+
                     if ((episodeDate - Date.now()) >= 0) {
                         ep.showName = fb_show.name;
                         ep.description = "s" + ep.season + "e" + ep.episode + " - " + ep.name;
+                        new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, "", ep.startDate, ep.endDate));
+                        sendTileTextNotification("Succesfully synced episodes for " + new_show.title);
                         calendar.addEvent(ep);
+
                         //calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
                     }
                 }
@@ -207,7 +212,7 @@
             subscribers[j].length = 0;
         }
         for (var member in _categories) delete _categories[member];
-        
+
 
         for (category in _raw_shows) {
             raw_show_list = _raw_shows[category];
@@ -233,10 +238,59 @@
         }
     }
 
+    var _createEvent = function (name) {
+
+        var shows = _getShows();
+
+        for (i in shows) {
+            if (shows[i].title == name) {
+                var eps = shows[i].episodes;
+                for (ep in eps) {
+                    var startDate = Date.parse(eps[ep].startDate);
+                    if (startDate - Date.now() >= 0) {
+                        var eventEpisode = eps[ep];
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        if (eventEpisode) {
+            params = {
+                'name': "Show night! Watching " + eventEpisode.name,
+                'picture': shows[i].picture,
+                'privacy_type': 'PRIVATE',
+                'location':'My place',
+                //or 'picture':"@some_img_url_at_my_server",
+                //or '@picture':"@some_img_url_at_my_server",
+                //or 'source':"some_img_url_at_my_server",
+                //or 'source':"@some_img_url_at_my_server",
+                //or 'picture':"some_img_path_at_my_server",
+                //or 'picture':"@some_img_path_at_my_server",
+                //or '@picture':"@some_img_path_at_my_server",
+                //or 'source':"some_img_path_at_my_server",
+                //or 'source':"@some_img_path_at_my_server",
+                'start_time': eventEpisode.startDate
+            };
+
+
+            FB.api('/me/events', 'post', params, function (response) {
+                if (!response || response.error) {
+                    var a = 2;
+                    //  log(response.error);
+                } else {
+                    var a = 2;
+                    //log('Post ID: ' + response.id);
+                }
+            });
+        }
+
+    }
+
     var _addShowToFavourites = function (name) {
 
-        App.Calendar.listEvents();
-        /*var shows = _getShows();
+        //  App.Calendar.listEvents();
+        var shows = _getShows();
 
         for (i in shows) {
             if (shows[i].title == name) {
@@ -250,7 +304,7 @@
                 return;
             }
         }
-    */}
+    }
 
     function sendTileTextNotification(text) {
         // Note: This sample contains an additional project, NotificationsExtensions.
@@ -261,7 +315,7 @@
 
         // create the wide template
         var tileContent = NotificationsExtensions.TileContent.TileContentFactory.createTileWideText03();
-        tileContent.textHeadingWrap.text =text  ;
+        tileContent.textHeadingWrap.text = text;
 
         // Users can resize tiles to square or wide.
         // Apps can choose to include only square assets (meaning the app's tile can never be wide), or
@@ -311,6 +365,7 @@
 
         WinJS.log && WinJS.log(tileXml.getXml(), "sample", "status");
     }
+
     function _getShow(name) {
         var shows = _getShows();
         for (var i in shows)
@@ -326,7 +381,9 @@
         getShow: _getShow,
         addShowToFavourites: _addShowToFavourites,
         subscribeListForAdd: _subscribeListForAdd,
-        updateShowsFromFacebook: _updateShowsFromFacebook
+        updateShowsFromFacebook: _updateShowsFromFacebook,
+        createEvent: _createEvent,
+        sendTileTextNotification: sendTileTextNotification
     });
 
 

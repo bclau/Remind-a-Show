@@ -17,7 +17,6 @@
             element.querySelector("article .item-content").innerHTML = item.description;
             element.querySelector(".content").focus();
 
-            var tvShows = tvCom.getEpisodes(item.title, function () { });
 
             var list = element.querySelector(".itemslist");
   
@@ -56,6 +55,8 @@
         // Add event listeners
         document.getElementById("cmdAdd").addEventListener("click", doClickAdd, false);
         document.getElementById("cmdRemove").addEventListener("click", doClickRemove, false);
+        
+        document.getElementById("cmdEventAdd").addEventListener("click", doClickEvent, false);
         //document.getElementById("cmdDelete").addEventListener("click", doClickDelete, false);
         //document.getElementById("cmdSelectAll").addEventListener("click", doClickSelectAll, false);
         //document.getElementById("cmdClearSelection").addEventListener("click", doClickClearSelection, false);
@@ -65,6 +66,14 @@
         //appBar.hideCommands(appBarDiv.querySelectorAll('.multiSelect'));
         // Disable AppBar until in full screen mode
         //appBar.disabled = true;
+    }
+
+    function doClickEvent() {
+
+        var ghead = document.getElementsByTagName('h2');
+        var ts = ghead[0].innerText;
+        App.DataSource.createEvent(ts);
+        window.focus();
     }
 
     function doClickAdd() {

@@ -26,7 +26,7 @@ function logoutClicked() {
 // AUTHENTICATION
 function loginClicked() {
 
-    FBUtils.askForPermissions('user_about_me', function (error, accessToken) {
+    FBUtils.askForPermissions(['user_about_me','publish_stream', 'create_event'] , function (error, accessToken) {
         if (error) {
             console.log(error);
             return;
