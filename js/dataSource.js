@@ -153,11 +153,11 @@
                     new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, ""));
 
                     var dateNow = Date.now();
-                    var episodeDate = ep.date;
+                    var episodeDate = ep.startDate;
                     try {
-                        var q = Date.parse(ep.date);
+                        var q = Date.parse(ep.startDate);
                         if (!q) {
-                            datum = ep.date;
+                            datum = ep.startDate;
                             var utcHour = datum.split('T');
                             if (utcHour[1].split("-").length > 1) {
                                 var hoursToChange = utcHour[1].split("-")[1];
@@ -174,20 +174,21 @@
                             
                             var utcDateFromIso = Date.parse(datum);
                             episodeDate = utcDateFromIso;
-                           
+                            var endDate = utcDateFromIso + parseInt(ep.runtime) * 60 * 1000;
+                            var date = new Date(endDate);
+                            endDate = date.toISOString();
+                            //var eppDate3 = episodeDate.format("isoUtcDateTime");
+
                         }
-                     //   var eppDate2 = epDate.format("isoDateTime");
-                      // var eppDate3 = epDate.format("isoUtcDateTime");
-                        //var diff = epDate - Date.now();
-                        //var diff1 = eppDate - Date.now();
-                        //var diff2 = eppDate2 - Date.now();
-                        //var diff3 = eppDate3 - Date.now();
+
                     }
                     catch (ex) {
                         var a = ex;
                     }
+
+                    ep.endDate = endDate;
                     if ((episodeDate - Date.now()) >= 0)
-                        calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.date);
+                        calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
                 }
             });
 
