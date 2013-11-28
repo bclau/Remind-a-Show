@@ -23,8 +23,8 @@
     var _raw_shows = {
         Favorites: [
             {
-                title: "Skins",
-                description: "Skins is awesome",
+                title: "The Big Bang Theory",
+                description: "The Big Bang Theory is awesome",
                 picture: "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-prn2/984248_10151592483837226_2077003679_n.jpg"
             },
             {

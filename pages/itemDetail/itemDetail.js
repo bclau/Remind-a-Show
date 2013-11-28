@@ -1,6 +1,9 @@
 ﻿(function () {
     "use strict";
 
+    var tvCom = App.tvcom.utils;
+
+
     WinJS.UI.Pages.define("/pages/itemDetail/itemDetail.html", {
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
@@ -13,6 +16,8 @@
             element.querySelector("article .item-image").alt = item.title;
             element.querySelector("article .item-content").innerHTML = item.description;
             element.querySelector(".content").focus();
+
+            var tvShows = tvCom.getEpisodes(item.title, function () { });
 
             var list = element.querySelector(".itemslist");
   
