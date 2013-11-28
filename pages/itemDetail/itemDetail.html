@@ -9,12 +9,67 @@
     <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
 
+    <style type="text/css">
+        label {
+            width: 150px;
+            margin-right: 10px;
+            text-align: right;
+            float: left;
+        }
+    </style>
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/pages/itemDetail/itemDetail.css" rel="stylesheet" />
     <script src="/js/data.js"></script>
     <script src="/pages/itemDetail/itemDetail.js"></script>
+
 </head>
 <body>
+    <div class="flyout" style="width: 40%; height: 70%" id="createEventFlyout" data-win-control="WinJS.UI.Flyout">
+        <h1>Be social, create an event!</h1>
+        <section id="eventDetails">
+        <div>
+            <label for="location">Location:</label>
+            <input id="location" data-win-bind="value:location"  type="text" placeholder="default: My place">
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <input id="description" data-win-bind="value:description"   type="text" placeholder="e.g. Bring beers!" />
+            
+        </div>
+        </section>
+        <!-- <div>
+            <label for="options">Friends:</label>
+            <select id="options"></select>
+        </div>-->
+
+        <div id="personTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+            <section id="displayPerson">
+                <div class="regularListIconTextItem">
+                    <img src="#" class="regularListIconTextItem-Image" data-win-bind="src: pic_square" />
+
+                    <div class="regularListIconTextItem-Detail">
+                        <h6><span id="personLastName" data-win-bind="innerText:name"></span></h6>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div id="personList"
+            class="win-selectionstylefilled"
+            data-win-control="WinJS.UI.ListView"
+            data-win-options="{
+                        itemTemplate : select('#personTemplate'),
+                        selectionMode : 'multi',
+                        tapBehavior : 'toggleSelect',
+                        swipeBehavior : 'select',
+                        layout : { type : WinJS.UI.GridLayout }
+                }">
+        </div>
+
+        <div class="rightAlign">
+            <button id="createEventButton">Create</button>
+        </div>
+    </div>
     <!-- The content that will be loaded and displayed. -->
     <div class="itemdetailpage fragment">
         <header aria-label="Header content" role="banner">
@@ -24,7 +79,7 @@
             </h1>
         </header>
         <div class="content" aria-label="Main content" role="main">
-            <div style="float: left; position:relative; width:40%;" >
+            <div style="float: left; position: relative; width: 40%;">
                 <article>
                     <div id="test">
                         <header>
@@ -36,30 +91,29 @@
                     </div>
                 </article>
             </div>
-            
-            <div style="float:right;display: inline-block; position:relative; width:60%;">
+
+            <div style="float: right; display: inline-block; position: relative; width: 60%;">
                 <article>
                     <div class="itemslist">
-
                     </div>
                 </article>
 
             </div>
-            
+
         </div>
 
-         <div id="scenarioAppBar" data-win-control="WinJS.UI.AppBar">
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdEventAdd',label:'CreateEvent',icon:'add',section:'global',tooltip:'Create facebook event'}">
-        </button>
-             <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdAdd',label:'Add to favourites',icon:'add',section:'global',tooltip:'Add item'}">
-        </button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdRemove',label:'Remove from favourites',icon:'remove',section:'global',tooltip:'Remove item'}">
-        </button>
-        <hr data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'appBarSeparator',type:'separator',section:'global'}" />
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdDelete',label:'Delete',icon:'delete',section:'global',tooltip:'Delete item'}">
-        </button>
+        <div id="scenarioAppBar" data-win-control="WinJS.UI.AppBar">
+            <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdEventAdd',label:'CreateEvent',icon:'add',section:'global',tooltip:'Create facebook event', type:'flyout', flyout: 'createEventFlyout'}">
+            </button>
+            <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdAdd',label:'Add to favourites',icon:'add',section:'global',tooltip:'Add item'}">
+            </button>
+            <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdRemove',label:'Remove from favourites',icon:'remove',section:'global',tooltip:'Remove item'}">
+            </button>
+            <hr data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'appBarSeparator',type:'separator',section:'global'}" />
+            <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdDelete',label:'Delete',icon:'delete',section:'global',tooltip:'Delete item'}">
+            </button>
         </div>
     </div>
-     
+
 </body>
 </html>

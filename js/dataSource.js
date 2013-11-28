@@ -127,7 +127,7 @@
             return;
 
         FBUtils.getShows(function (fb_show) {
-            var new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
+            var new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source, fb_show.id);
 
             if (fb_show.genre == undefined) {
                 fb_show.genre = "Undefined";
@@ -238,55 +238,7 @@
         }
     }
 
-    var _createEvent = function (name) {
-
-        var shows = _getShows();
-
-        for (i in shows) {
-            if (shows[i].title == name) {
-                var eps = shows[i].episodes;
-                for (ep in eps) {
-                    var startDate = Date.parse(eps[ep].startDate);
-                    if (startDate - Date.now() >= 0) {
-                        var eventEpisode = eps[ep];
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-        if (eventEpisode) {
-            params = {
-                'name': "Show night! Watching " + eventEpisode.name,
-                'picture': shows[i].picture,
-                'privacy_type': 'PRIVATE',
-                'location':'My place',
-                //or 'picture':"@some_img_url_at_my_server",
-                //or '@picture':"@some_img_url_at_my_server",
-                //or 'source':"some_img_url_at_my_server",
-                //or 'source':"@some_img_url_at_my_server",
-                //or 'picture':"some_img_path_at_my_server",
-                //or 'picture':"@some_img_path_at_my_server",
-                //or '@picture':"@some_img_path_at_my_server",
-                //or 'source':"some_img_path_at_my_server",
-                //or 'source':"@some_img_path_at_my_server",
-                'start_time': eventEpisode.startDate
-            };
-
-
-            FB.api('/me/events', 'post', params, function (response) {
-                if (!response || response.error) {
-                    var a = 2;
-                    //  log(response.error);
-                } else {
-                    var a = 2;
-                    //log('Post ID: ' + response.id);
-                }
-            });
-        }
-
-    }
-
+   
     var _addShowToFavourites = function (name) {
 
         //  App.Calendar.listEvents();
@@ -294,7 +246,7 @@
 
         for (i in shows) {
             if (shows[i].title == name) {
-                temp_show = new Show(shows[i].title, shows[i].description, shows[i].picture);
+                temp_show = new Show(shows[i].title, shows[i].description, shows[i].picture, shows[i].showId);
                 temp_show.category = "Favorites";
                 _categories["Favorites"].shows.push(temp_show);
                 for (var i in subscribers) {
@@ -382,7 +334,6 @@
         addShowToFavourites: _addShowToFavourites,
         subscribeListForAdd: _subscribeListForAdd,
         updateShowsFromFacebook: _updateShowsFromFacebook,
-        createEvent: _createEvent,
         sendTileTextNotification: sendTileTextNotification
     });
 

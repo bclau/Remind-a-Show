@@ -29,11 +29,11 @@
     var show = WinJS.Class.define(
 
         // constructor
-        function (title, description, picture) {
+        function (title, description, picture, showId) {
 
             this.title = title;
             this.description = description;
-
+            this.showId = showId;
             if (picture)
                 this.picture = picture;
             else
@@ -74,7 +74,7 @@
             this.link = "http://www.youtube.com/watch?v=Y9zte8wU3-s";
             this.startDate = startDate;
             this.endDate = endDate;
-            
+
         },
         // instance members
         {

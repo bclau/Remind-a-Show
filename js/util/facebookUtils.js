@@ -238,7 +238,91 @@
     }
 
 
+    var _createEvent = function (event) {
+
+        var shows = App.DataSource.getShows();
+
+        for (i in shows) {
+            if (shows[i].showId == event.showId) {
+                var eps = shows[i].episodes;
+                for (var ep in eps) {
+                    var startDate = Date.parse(eps[ep].startDate);
+                    if (startDate - Date.now() >= 0) {
+                        var eventEpisode = eps[ep];
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        if (eventEpisode) {
+          var  params = {
+                'name': "Show night! Watching " + eventEpisode.name,
+                'picture': shows[i].picture,
+                'privacy_type': 'SECRET',
+                'location': event.location,
+                'description':event.description +'\n\n\n\n\n Powered by Remind-a-Show.',
+                'start_time': eventEpisode.startDate
+            };
+
+
+            FB.api('/me/events', 'post', params, function (response) {
+                if (!response || response.error) {
+                    var a = 2;
+                    //  log(response.error);
+                } else {
+                    //success
+                    _inviteToEvent(response.id, event.selectedFriends);
+                  //  var a = 2;
+                    //log('Post ID: ' + response.id);
+                }
+            });
+        }
+
+    }
+
+    var _friendsSuggestion = function (showId,callback) {
+
+        FB.api('/fql',
+            {
+                q: { "query1": "SELECT uid FROM page_fan WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND page_id = " + showId, "query2": "SELECT uid, name, pic_square FROM user where uid in (select uid from #query1)AND current_location.city in (SELECT current_location.city FROM user WHERE uid = me())" }
+            },
+        function (response) {
+            // handle response
+            if (!response || response.error) {
+
+            } else {
+                //success
+                var friends = response.data[1].fql_result_set;
+                callback(friends);
+
+            }
+        });
+    }
+
+    var _inviteToEvent = function (eventId, userIds) {
+        var params = {
+            // 'users': ['1783833205', '769114587']
+            'users': userIds
+        };
+
+
+        FB.api('/' + eventId + '/invited', 'post', params, function (response) {
+            if (!response || response.error) {
+                var a = 2;
+                //  log(response.error);
+            } else {
+                //success
+                var a = 2;
+                //log('Post ID: ' + response.id);
+            }
+        });
+
+    }
     WinJS.Namespace.define("App.fb.utils", {
+        createEvent: _createEvent,
+        friendsSuggestion:_friendsSuggestion,
+        inviteToEvent:_inviteToEvent,
         getShows: getShows,
         askForPermissions: askForPermissions,
         updateUserInfo: updateUserInfo,
