@@ -32,7 +32,7 @@
         function (title, description, picture) {
 
             this.title = title;
-            this.description = description;
+            this.description = description || "";
 
             if (picture)
                 this.picture = picture;
@@ -73,6 +73,8 @@
             this.startDate = startDate;
             this.endDate = endDate;
             this.description = description || "";
+            this.url = "";
+            this.image = "";
         },
         // instance members
         {

@@ -5,11 +5,35 @@
     var _uri = "/shows/";
     var _watch = "/watch/?episode_type_range=1-2&vdmid_free=checked";
 
+    var _more_less_trimming = '<span class=\"_more\">more</span><span class=\"_less\">less</span>';
+
     var _list_class_name = "videos _standard_list",
         _image_class_name = "force_scale",
         _title_class_name = "title",
         _airing_class_name = "airing_info",
-        _description_class_name = "body_text";
+        _description_class_name = "body_text",
+        _video_div_class_name = "vid_bg";
+
+    var _getVideo = function (url, callback) {
+        WinJS.xhr({
+            url: url
+        }).done(function (result) {
+            var resultText = result.responseText;
+            var startIndex = resultText.indexOf('<div class="' + _video_div_class_name + '">');
+            var endIndex = resultText.indexOf('</div>', startIndex) + '</div>'.length;
+            var div = resultText.substring(startIndex, endIndex);
+
+            var div_element = document.createElement("div");
+            div_element.innerHTML = div;
+
+            callback(div_element);
+
+        },
+        function (result) {
+            //errors and stuff.
+
+        });
+    }
 
     var _getEpisodes = function (show, callback) {
         var url = _baseUrl + _uri + show.split(' ').join('-') + _watch;
@@ -41,7 +65,8 @@
                 episode = se_parts[1].trim().substring(3);
                 air_date = se_air_parts[1].trim();
                 description = episodeNode.getElementsByClassName(_description_class_name)[0].innerHTML;
-
+                description = description.replace(_more_less_trimming, "");
+                description = description.replace("<span>", "").replace("</span>", "").trim();
 
                 callback({
                     season: season,
@@ -62,7 +87,8 @@
     }
 
     WinJS.Namespace.define("App.tvcom.utils", {
-        getEpisodes: _getEpisodes
+        getEpisodes: _getEpisodes,
+        getVideo: _getVideo
     });
 
 

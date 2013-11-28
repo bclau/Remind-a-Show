@@ -173,7 +173,7 @@
     var _get_tvcom_episodes = function (new_show) {
         tvcomUtils.getEpisodes(new_show.title, function (episode) {
             var ep = new Episode(episode.season, episode.episode, episode.name, episode.description);
-            ep.list = episode.url;
+            ep.url = episode.url;
             ep.image = episode.image;
             new_show.addEpisode(ep);
 
@@ -188,7 +188,7 @@
             var new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source);
 
             if (fb_show.genre == undefined) {
-                fb_show.genre = "Undefined";
+                fb_show.genre = "No Category";
             }
             new_show.category = fb_show.genre;
 
