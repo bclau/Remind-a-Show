@@ -187,8 +187,12 @@
                     }
 
                     ep.endDate = endDate;
-                    if ((episodeDate - Date.now()) >= 0)
-                        calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
+                    if ((episodeDate - Date.now()) >= 0) {
+                        ep.showName = fb_show.name;
+                        ep.description = "s" + ep.season + "e" + ep.episode + " - " + ep.name;
+                        calendar.addEvent(ep);
+                        //calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
+                    }
                 }
             });
 
