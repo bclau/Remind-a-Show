@@ -12,9 +12,7 @@
     var activation = Windows.ApplicationModel.Activation;
     var nav = WinJS.Navigation;
 
-
     var readFbKey = function () {
-
         roamingFolder.getFileAsync(fbKeyFile)
             .then(function (file) {
                 return Windows.Storage.FileIO.readTextAsync(file);

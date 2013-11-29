@@ -26,8 +26,7 @@
             var div_element = document.createElement("div");
             div_element.innerHTML = div;
 
-            callback(div_element);
-
+            callback(div);
         },
         function (result) {
             //errors and stuff.
@@ -66,7 +65,8 @@
                 air_date = se_air_parts[1].trim();
                 description = episodeNode.getElementsByClassName(_description_class_name)[0].innerHTML;
                 description = description.replace(_more_less_trimming, "");
-                description = description.replace("<span>", "").replace("</span>", "").trim();
+                description = description.replace("<span>", "").replace("</span>", "")
+                description = description.replace("<p>", "").replace("</p>").trim();
                
                 callback({
                     season: season,

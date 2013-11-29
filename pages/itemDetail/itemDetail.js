@@ -3,14 +3,32 @@
 
     var tvCom = App.tvcom.utils;
 
+    var _shadow_box_id = "black_overlay";
+    var _video_box_id = "video_container";
 
     var _loadEpisode = function (url) {
         if (!url)
             return;
 
         tvCom.getVideo(url, function (div) {
-            var a = 4 + 5;
+            var shadowBox = document.getElementById(_shadow_box_id);
+            var videoBox = document.getElementById(_video_box_id);
+
+            shadowBox.className = "visible";
+            videoBox.className = "visible";
+
+            //var iframe = document.createElement("iframe");
+            //iframe.appendChild(div);
+            WinJS.Utilities.setInnerHTMLUnsafe(videoBox, div);
+            //videoBox.appendChild(iframe);
         });
+    }
+
+    var _clear = function () {
+        var shadowBox = document.getElementById(_shadow_box_id);
+        var videoBox = document.getElementById(_video_box_id);
+        shadowBox.className = "hidden";
+        videoBox.className = "hidden";
     }
 
     var _createEventHandler = function (url) {
@@ -25,11 +43,6 @@
 
         ready: function (element, options) {
 
-            var data = [{ firstName: "aaa", lastName: "aaaaa" }, { firstName: "bbb", lastName: "bbbbb" }];
-            var listView = document.getElementById("personList").winControl;
-
-            listView.itemDataSource = new WinJS.Binding.List(data).dataSource;
-
             initAppBar();
             var item = options && options.item ? Data.resolveItemReference(options.item) : Data.items.getAt(0);
             element.querySelector(".titlearea .pagetitle").textContent = item.category;
@@ -38,6 +51,7 @@
             element.querySelector("article .item-image").src = item.picture;
             element.querySelector("article .item-image").alt = item.title;
             element.querySelector("article .item-content").innerHTML = item.description;
+            element.querySelector("#black_overlay").onclick = _clear;
             element.querySelector(".content").focus();
 
             var list = element.querySelector(".itemslist");
@@ -45,7 +59,7 @@
             for (var i in item.episodes) {
                 var ep = item.episodes[i];
                 var temp = document.createElement("div");
-                var t = document.createElement("span");
+                var tt, t = document.createElement("span");
                 t.innerText = "Season: " + ep.season + "  Episode: " + ep.number;
                 temp.appendChild(t);
                 t = document.createElement("br");
@@ -55,19 +69,30 @@
                 t.innerText = "Name: " + ep.name;
                 temp.appendChild(t);
 
-                t = document.createElement("br");
+                t = document.createElement("div");
+                t.innerText = "\n";
                 temp.appendChild(t);
 
                 t = document.createElement("div");
-                t.innerHTML = ep.description;
+
+                if (ep.image) {
+                    tt = document.createElement("img");
+                    tt.src = ep.image;
+                    t.appendChild(tt);
+                }
+
+                tt = document.createElement("div");
+                tt.innerHTML = ep.description;
+                t.appendChild(tt);
                 temp.appendChild(t);
 
                 if (ep.url) {
                     t = document.createElement("br");
                     temp.appendChild(t);
                     t = document.createElement("a");
-                    t.href = "#";
-                    t.onclick = _createEventHandler(ep.url);
+                    t.href = ep.url;
+                    //t.href = "#";
+                    //t.onclick = _createEventHandler(ep.url);
                     t.innerText = "Click here to watch it!";
                     temp.appendChild(t);
                 }
