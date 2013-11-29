@@ -307,10 +307,8 @@
 
     var _inviteToEvent = function (eventId, userIds) {
         var params = {
-            // 'users': ['1783833205', '769114587']
             'users': userIds
         };
-
 
         FB.api('/' + eventId + '/invited', 'post', params, function (response) {
             if (!response || response.error) {
@@ -319,6 +317,10 @@
             } else {
                 //success
                 var a = 2;
+
+                var v = new Windows.UI.Popups.MessageDialog("Facebook event succesfully created!");
+                v.showAsync();
+
                 //log('Post ID: ' + response.id);
             }
         });

@@ -20,34 +20,23 @@
                 return Windows.Storage.FileIO.readTextAsync(file);
             }).done(function (fbKey) {
                 if (fbKey) {
+
                     FB.setAccessToken(fbKey);
-                    
                     App.DataSource.updateShowsFromFacebook();
                     FBUtils.updateUserInfo();
                 }
+                else {
+
+                 
+                }
 
             }, function () {
-                return null;
+                var v = new Windows.UI.Popups.MessageDialog("Welcome\n\nLooks like it's your first time visiting. Try syncing with your facebook account (Settings -> Connect to facebook).\n Promise you won't regret it!");
+                v.showAsync();
             });
     }
 
-    var testResume = function () {
-        var key = "aa";
 
-        var roamingFolder = Windows.Storage.ApplicationData.current.roamingFolder;
-        var fbKeyFile = "aaa.txt";
-
-
-        roamingFolder.createFileAsync(fbKeyFile, Windows.Storage.CreationCollisionOption.replaceExisting)
-            .then(function (file) {
-                return Windows.Storage.FileIO.writeTextAsync(file, key);
-            }).done(function () {
-
-            });
-
-
-
-    }
 
     app.addEventListener("activated", function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
@@ -55,7 +44,6 @@
             if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
                 // TODO: This application has been newly launched. Initialize
                 // your application here.
-                // FBUtils.removeFbKey();
                 readFbKey();
 
             } else {
