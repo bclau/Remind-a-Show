@@ -1,7 +1,6 @@
 ﻿(function () {
     "use strict";
 
-
     var grayTiles = [
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY3B0cPoPAANMAcOba1BlAAAAAElFTkSuQmCC",
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY7h4+cp/AAhpA3h+ANDKAAAAAElFTkSuQmCC",
@@ -40,8 +39,8 @@
                 this.picture = picture;
             else
                 //this.picture = grayTiles[Math.floor(Math.random() * 3)];
-                if (title == "Skins")
-                    this.picture = "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-prn2/984248_10151592483837226_2077003679_n.jpg";
+                if (title == "The Big Bang Theory")
+                    this.picture = "https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-ash3/1395177_10151801519989678_193317412_n.jpg";
             if (title == "Suits")
                 this.picture = "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn1/12948_529633363782965_750167263_n.jpg";
             if (title == "Breaking Bad")
@@ -65,7 +64,6 @@
         }
     );
 
-
     var episode = WinJS.Class.define(
         //constructor
         function (season, number, name, description, startDate, endDate) {
@@ -88,12 +86,10 @@
 
         })
 
-
     WinJS.Namespace.define("App", {
         Episode: episode,
         Show: show,
         Category: category
     });
-
 
 })();

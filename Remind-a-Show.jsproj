@@ -70,13 +70,10 @@
     <Content Include="images\WideLogo.scale-100.jpg" />
     <Content Include="js\1_BasicBinding.js" />
     <Content Include="js\data.js" />
-    <Content Include="js\date.format.js" />
     <Content Include="js\default.js" />
-    <Content Include="js\fb.js" />
-    <Content Include="js\jquery-1.8.2-win8-1.0.js" />
-    <Content Include="js\jquery.mobile-1.2.0.js" />
+    <Content Include="js\lib\fb.js" />
+    <Content Include="js\lib\jquery-1.8.2-win8-1.0.js" />
     <Content Include="js\main.js" />
-    <Content Include="js\mustache.js" />
     <Content Include="js\navigator.js" />
     <Content Include="js\dataClass.js" />
     <Content Include="js\dataSource.js" />

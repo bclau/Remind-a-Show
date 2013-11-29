@@ -27,7 +27,7 @@
             {
                 title: "The Big Bang Theory",
                 description: "The Big Bang Theory is awesome",
-                picture: "https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-prn2/984248_10151592483837226_2077003679_n.jpg"
+                picture: "https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-ash3/1395177_10151801519989678_193317412_n.jpg"
             },
             {
                 title: "Suits",
@@ -42,7 +42,6 @@
                 picture: "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash3/579118_10151923176067722_1094067595_n.png"
             }]
     }
-
 
     var _raw_episodes = {
         "Suits":
@@ -69,8 +68,7 @@
                     }
                 ]
 
-            ],
-
+            ]
     }
 
     _shows = [];
@@ -85,7 +83,6 @@
 
     var _getShows = function () {
         return _shows;
-
     }
 
     var _getShowByName = function (name) {
@@ -97,7 +94,6 @@
             for (episode in episodes) {
                 new_show.addEpisode(new Episode(season + 1, episode + 1,
                     episodes[episode].name, episodes[episode].description))
-
             }
         }
 
@@ -114,7 +110,6 @@
             list.push(_shows[i]);
         }
     }
-
 
     var _get_tvrage_episodes = function (new_show) {
         tvrageUtils.getEpisodes(new_show.title, function (episodes) {
@@ -167,8 +162,6 @@
                     new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, "", ep.startDate, ep.endDate));
                     tileUtils.sendTileTextNotification("Succesfully synced episodes for " + new_show.title);
                     calendar.addEvent(ep);
-
-                   
                 }
             }
         });
@@ -180,13 +173,13 @@
             ep.url = episode.url;
             ep.image = episode.image;
             new_show.addEpisode(ep);
-
         });
     }
 
     var _updateShowsFromFacebook = function () {
         if (retrievedFromFacebook)
             return;
+
         App.tile.utils.displayTextToast({ "head": "Syncing episodes", "body": "Please be patient." });
 
         FBUtils.getShows(function (fb_show) {
@@ -210,16 +203,11 @@
                 subscribers[i].push(new_show);
             }
 
-            
-
             _get_tvrage_episodes(new_show);
             _get_tvcom_episodes(new_show);
-
-
         });
 
         tileUtils.sendTileTextNotification("Succesfully synced with facebook.");
-        
     }
 
     var _clearShows = function () {
@@ -227,8 +215,8 @@
         for (var j in subscribers) {
             subscribers[j].length = 0;
         }
-        for (var member in _categories) delete _categories[member];
 
+        for (var member in _categories) delete _categories[member];
 
         for (category in _raw_shows) {
             raw_show_list = _raw_shows[category];
@@ -254,52 +242,9 @@
         }
     }
 
-    var _createEvent = function (name) {
-
-        var shows = _getShows();
-
-        for (i in shows) {
-            if (shows[i].title == name) {
-                var eps = shows[i].episodes;
-                for (ep in eps) {
-                    var startDate = Date.parse(eps[ep].startDate);
-                    if (startDate - Date.now() >= 0) {
-                        var eventEpisode = eps[ep];
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-        if (eventEpisode) {
-            params = {
-                'name': "Show night! Watching " + eventEpisode.name,
-                'picture': shows[i].picture,
-                'privacy_type': 'PRIVATE',
-                'location':'My place',
-                'start_time': eventEpisode.startDate
-            };
-
-
-            FB.api('/me/events', 'post', params, function (response) {
-                if (!response || response.error) {
-                    var a = 2;
-                    //  log(response.error);
-                } else {
-                    var a = 2;
-                    //log('Post ID: ' + response.id);
-                }
-            });
-        }
-
-    }
-
     var _addShowToFavourites = function (name) {
-
         //  App.Calendar.listEvents();
         var shows = _getShows();
-
-
         for (i in shows) {
             if (shows[i].title == name) {
                 temp_show = new Show(shows[i].title, shows[i].description, shows[i].picture, shows[i].showId);

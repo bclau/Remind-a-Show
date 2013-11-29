@@ -11,6 +11,7 @@
     var fbKeyFile = "fbKeyFile.txt";
 
     var myShows = null;
+    var _myFriends = null;
 
     FB.options({
         appId: '408764209210253'
@@ -23,20 +24,17 @@
     }
 
     var removeFbKey = function () {
-        roamingFolder.
-                getFileAsync(fbKeyFile).then(function (file) {
-    if (file == null) {
-        var v = new Windows.UI.Popups.MessageDialog("File was deleted");
-        v.showAsync();
-    } else {
-        file.deleteAsync();
-    }
-});
+        roamingFolder.getFileAsync(fbKeyFile).then(function (file) {
+            if (file == null) {
+                var v = new Windows.UI.Popups.MessageDialog("File was deleted");
+                v.showAsync();
+            } else {
+                file.deleteAsync();
+            }
+        });
     }
 
     var saveFbKey = function (key) {
-
-
         roamingFolder.createFileAsync(fbKeyFile, Windows.Storage.CreationCollisionOption.replaceExisting)
             .then(function (file) {
                 return Windows.Storage.FileIO.writeTextAsync(file, key);
@@ -44,8 +42,6 @@
 
             });
     }
-
-
 
     var askForPermissions = function (scope, callback) {
         var redirectUri = 'https://www.facebook.com/connect/login_success.html',
@@ -73,7 +69,7 @@
                         console.log('error: ' + qs.error + ' : ' + qs.error_description);
                         return;
                     }
-                     
+
                     //get 2month lifetime code
 
                     var clientId = "408764209210253";
@@ -86,16 +82,15 @@
                                     "&grant_type=fb_exchange_token" +
                                     "&fb_exchange_token=" + shortToken;
                     WinJS.xhr({
-                        url: baseUrl 
+                        url: baseUrl
                     }).done(function (result) {
-
 
                         //var lines = result.responseText.trim().split('\n');
                         var body = result.responseText.split('&');
                         var key = "";
                         var value = "";
                         for (key in body) {
-                          var  split = body[key].split('=');
+                            var split = body[key].split('=');
                             if (split.length === 2) {
                                 value = split[1];
                                 if (!isNaN(value)) {
@@ -105,17 +100,15 @@
                                 }
                             }
                         }
-                        
+
                         FB.setAccessToken(result["access_token"]);
                         callback(null, result["access_token"]);
-                        
                     },
      function (result) {
          //errors and stuff.
          console.log(result);
 
      });
-                   
 
                 }, function error(err) {
                     console.log('Error Number: ' + err.number);
@@ -140,56 +133,6 @@
         return b;
     }
 
-    /*
-    // Handle status changes
-    function handleStatusChange(response) {
-        if (response.authResponse) {
-            logResponse(response);
-            window.location.hash = '#menu';
-            updateUserInfo(response);
-        } else {
-            window.location.hash = '#login';
-        }
-    }
-
-
-    // GRAPH API (OPEN GRAPH)
-    function handleOGSuccess() {
-        logResponse("[handleOGSuccess] done.");
-        showPublishConfirmation();
-
-        // Clear out selections
-        selectedMealIndex = -1;
-        selectedPlaceIndex = -1;
-        selectedPlaceID = null;
-        currentlySelectedPlaceElement = null;
-        selectedFriends = {};
-        // Reset the placeholders
-        $('#select-meal').html("Select one");
-        $('#select-location').html("Select one");
-        $('#select-friends').html("Select friends");
-        // Disable the announce button
-        $('#announce').addClass('ui-disabled');
-
-    }
-
-    function handleGenericError(e) {
-        logResponse("Error ..." + JSON.stringify(e));
-    }
-
-    function handlePublishOGError(e) {
-        logResponse("Error publishing ..." + JSON.stringify(e));
-        var errorCode = e.code;
-        logResponse("Error code ..." + errorCode);
-        if (errorCode == "200") {
-            // Request publish actions, probably missing piece here
-            reauthorizeForPublishPermissions();
-        }
-    }
-
-
-    */
-
     var updateUserInfo = function (response) {
         FB.api('/me',
           { fields: "name,first_name,picture" },
@@ -204,7 +147,6 @@
               //document.getElementById("user-identity").html(output);
           });
     }
-
 
     // tv shows
     var getShows = function (callback) {
@@ -242,9 +184,7 @@
         }
     }
 
-
     var _createEvent = function (event) {
-
         var shows = App.DataSource.getShows();
 
         for (i in shows) {
@@ -260,16 +200,16 @@
                 break;
             }
         }
+
         if (eventEpisode) {
-          var  params = {
+            var params = {
                 'name': "Show night! Watching " + eventEpisode.name,
                 'picture': shows[i].picture,
                 'privacy_type': 'SECRET',
                 'location': event.location,
-                'description':event.description +'\n\n\n\n\n Powered by Remind-a-Show.',
+                'description': event.description + '\n\n\n\n\n Powered by Remind-a-Show.',
                 'start_time': eventEpisode.startDate
             };
-
 
             FB.api('/me/events', 'post', params, function (response) {
                 if (!response || response.error) {
@@ -278,7 +218,7 @@
                 } else {
                     //success
                     _inviteToEvent(response.id, event.selectedFriends);
-                  //  var a = 2;
+                    //  var a = 2;
                     //log('Post ID: ' + response.id);
                 }
             });
@@ -286,12 +226,11 @@
 
     }
 
-    var _friendsSuggestion = function (showId,callback) {
+    var _friendsSuggestion = function (showId, callback) {
 
-        FB.api('/fql',
-            {
-                q: { "query1": "SELECT uid FROM page_fan WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND page_id = " + showId, "query2": "SELECT uid, name, pic_square FROM user where uid in (select uid from #query1)AND current_location.city in (SELECT current_location.city FROM user WHERE uid = me())" }
-            },
+        FB.api('/fql', {
+            q: { "query1": "SELECT uid FROM page_fan WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND page_id = " + showId, "query2": "SELECT uid, name, pic_square FROM user where uid in (select uid from #query1)AND current_location.city in (SELECT current_location.city FROM user WHERE uid = me())" }
+        },
         function (response) {
             // handle response
             if (!response || response.error) {
@@ -300,7 +239,6 @@
                 //success
                 var friends = response.data[1].fql_result_set;
                 callback(friends);
-
             }
         });
     }
@@ -312,30 +250,48 @@
 
         FB.api('/' + eventId + '/invited', 'post', params, function (response) {
             if (!response || response.error) {
-                var a = 2;
                 //  log(response.error);
             } else {
                 //success
-                var a = 2;
 
                 var v = new Windows.UI.Popups.MessageDialog("Facebook event succesfully created!");
                 v.showAsync();
-
                 //log('Post ID: ' + response.id);
             }
         });
-
     }
+
+    // Friends
+    var _getFriends = function () {
+        // Check for and use cached data
+        if (_myFriends)
+            return _myFriends;
+
+        // logResponse("[getFriends] get friend data.");
+        // Use the Graph API to get friends
+        FB.api('/me/television', { fields: 'category, name', limit: '50' }, function (response) {
+            if (!response || response.error) {
+                //  logResponse("Error fetching friend data.");
+            } else {
+                _myFriends = response.data;
+                return _myFriends;
+
+                //  logResponse(myFriends);
+                //                        displayFriends(myFriends);
+            }
+        });
+    }
+
     WinJS.Namespace.define("App.fb.utils", {
         createEvent: _createEvent,
-        friendsSuggestion:_friendsSuggestion,
-        inviteToEvent:_inviteToEvent,
+        friendsSuggestion: _friendsSuggestion,
+        inviteToEvent: _inviteToEvent,
         getShows: getShows,
+        getFriends: _getFriends,
         askForPermissions: askForPermissions,
         updateUserInfo: updateUserInfo,
         saveFbKey: saveFbKey,
         removeFbKey: removeFbKey
     });
-
 
 })();
