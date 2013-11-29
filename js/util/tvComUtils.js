@@ -67,7 +67,7 @@
                 description = episodeNode.getElementsByClassName(_description_class_name)[0].innerHTML;
                 description = description.replace(_more_less_trimming, "");
                 description = description.replace("<span>", "").replace("</span>", "").trim();
-
+               
                 callback({
                     season: season,
                     episode: episode,
@@ -75,7 +75,8 @@
                     air_date: air_date,
                     description: description,
                     image: image_link,
-                    url: url });
+                    url: url
+                });
             }
 
 

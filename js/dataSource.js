@@ -157,6 +157,10 @@
 
                 ep.endDate = endDate;
 
+                App.tile.utils.showCount++;
+                if (App.tile.utils.totalShows == App.tile.utils.showCount)
+                    App.tile.utils.displayTextToast({ "head": "Episodes synced.", "body": "Thank you for your patience." });
+
                 if ((episodeDate - Date.now()) >= 0) {
                     ep.showName = new_show.title;
                     ep.description = "s" + ep.season + "e" + ep.episode + " - " + ep.name;
@@ -164,7 +168,7 @@
                     tileUtils.sendTileTextNotification("Succesfully synced episodes for " + new_show.title);
                     calendar.addEvent(ep);
 
-                    //calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
+                   
                 }
             }
         });
@@ -183,8 +187,10 @@
     var _updateShowsFromFacebook = function () {
         if (retrievedFromFacebook)
             return;
+        App.tile.utils.displayTextToast({ "head": "Syncing episodes", "body": "Please be patient." });
 
         FBUtils.getShows(function (fb_show) {
+
             var new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source, fb_show.id);
             if (fb_show.genre == undefined) {
                 fb_show.genre = "No Category";
@@ -213,6 +219,7 @@
         });
 
         tileUtils.sendTileTextNotification("Succesfully synced with facebook.");
+        
     }
 
     var _clearShows = function () {
@@ -270,15 +277,6 @@
                 'picture': shows[i].picture,
                 'privacy_type': 'PRIVATE',
                 'location':'My place',
-                //or 'picture':"@some_img_url_at_my_server",
-                //or '@picture':"@some_img_url_at_my_server",
-                //or 'source':"some_img_url_at_my_server",
-                //or 'source':"@some_img_url_at_my_server",
-                //or 'picture':"some_img_path_at_my_server",
-                //or 'picture':"@some_img_path_at_my_server",
-                //or '@picture':"@some_img_path_at_my_server",
-                //or 'source':"some_img_path_at_my_server",
-                //or 'source':"@some_img_path_at_my_server",
                 'start_time': eventEpisode.startDate
             };
 

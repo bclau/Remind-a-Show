@@ -1,6 +1,48 @@
 ﻿(function () {
 
-    var _sendTileTextNotification = function(text) {
+    "use strict";
+
+    var Notifications = Windows.UI.Notifications;
+    var ToastContent = NotificationsExtensions.ToastContent;
+
+    function _displayTextToast(toast) {
+        // Get the toast manager.
+        var notificationManager = Notifications.ToastNotificationManager;
+
+        var content;
+        content = ToastContent.ToastContentFactory.createToastText02();
+        content.textHeading.text = toast.head;
+        content.textBodyWrap.text = toast.body;
+
+        // Create a toast, then create a ToastNotifier object
+        // to send the toast.
+        var toasty = content.createNotification();
+
+       
+            notificationManager.createToastNotifier().show(toasty);
+        
+        //var template = notifications.ToastTemplateType.toastText02;
+        //var toastXml = notifications.ToastNotificationManager.getTemplateContent(template);
+
+        //var toastTextElements = toastXml.getElementsByTagName("text");
+        //toastTextElements[0].appendChild(toastXml.createTextNode("Hello World!"));
+
+
+
+        //var toastNode = toastXml.selectSingleNode("/toast");
+        //toastNode.setAttribute("duration", "long");
+
+        //toastXml.selectSingleNode("/toast").setAttribute("launch", '{"type":"toast","param1":"12345","param2":"67890"}');
+
+        //var toast = new notifications.ToastNotification(toastXml);
+
+
+        //var toastNotifier = notifications.ToastNotificationManager.createToastNotifier();
+        //toastNotifier.show(toast);
+
+    }
+
+    var _sendTileTextNotification = function (text) {
         // Note: This sample contains an additional project, NotificationsExtensions.
         // NotificationsExtensions exposes an object model for creating notifications, but you can also modify the xml
         // of the notification directly. See the additional function sendTileTextNotificationWithXmlManipulation to see how
@@ -30,7 +72,7 @@
         WinJS.log && WinJS.log(tileContent.getContent(), "sample", "status");
     }
 
-    var _sendTileLocalImageNotificationWithXmlManipulation = function() {
+    var _sendTileLocalImageNotificationWithXmlManipulation = function () {
         // get a XML DOM version of a specific template by using getTemplateContent
         var tileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01);
 
@@ -60,9 +102,14 @@
         WinJS.log && WinJS.log(tileXml.getXml(), "sample", "status");
     }
 
+    var _showCount = 0;
+    var _totalShows = 0;
     WinJS.Namespace.define("App.tile.utils", {
         sendTileTextNotification: _sendTileTextNotification,
-        sendTileLocalImageNotificationWithXmlManipulation: _sendTileLocalImageNotificationWithXmlManipulation
+        sendTileLocalImageNotificationWithXmlManipulation: _sendTileLocalImageNotificationWithXmlManipulation,
+        displayTextToast: _displayTextToast,
+        showCount: _showCount,
+        totalShows: _totalShows
     });
 
 

@@ -21,6 +21,7 @@
             }).done(function (fbKey) {
                 if (fbKey) {
                     FB.setAccessToken(fbKey);
+                    
                     App.DataSource.updateShowsFromFacebook();
                     FBUtils.updateUserInfo();
                 }

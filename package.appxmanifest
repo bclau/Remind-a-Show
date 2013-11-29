@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="Remind-a-Show" Logo="images\logo.jpg" SmallLogo="images\smalllogo.png" Description="Remind-a-Show" ForegroundText="light" BackgroundColor="#464646">
+      <VisualElements DisplayName="Remind-a-Show" Logo="images\logo.jpg" SmallLogo="images\logo.png" Description="Remind-a-Show" ForegroundText="light" BackgroundColor="#464646" ToastCapable="true">
         <DefaultTile ShowName="allLogos" WideLogo="images\WideLogo.jpg" />
         <SplashScreen Image="images\splash-sdk.png" />
       </VisualElements>

@@ -218,6 +218,11 @@
             if (!response || response.error) {
                 logResponse("Error fetching data.");
             } else {
+                var element_count = 0;
+                for (var e in response.data)
+                    if (response.data.hasOwnProperty(e))
+                        element_count++;
+                App.tile.utils.totalShows = element_count;
                 getDetailedShows(response.data, callback);
 
             }
