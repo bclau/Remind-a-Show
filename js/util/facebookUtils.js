@@ -43,6 +43,41 @@
             });
     }
 
+    var _getAccessToken = function (clientId, clientSecret, shortToken, callback) {
+        var baseUrl = "https://graph.facebook.com/oauth/access_token?" +
+                "&client_id=" + clientId +
+                "&client_secret=" + clientSecret +
+                "&grant_type=fb_exchange_token" +
+                "&fb_exchange_token=" + shortToken;
+        WinJS.xhr({
+            url: baseUrl
+        }).done(function (result) {
+
+            //var lines = result.responseText.trim().split('\n');
+            var body = result.responseText.split('&');
+            var key = "";
+            var value = "";
+            for (key in body) {
+                var split = body[key].split('=');
+                if (split.length === 2) {
+                    value = split[1];
+                    if (!isNaN(value)) {
+                        result[split[0]] = parseInt(value);
+                    } else {
+                        result[split[0]] = value;
+                    }
+                }
+            }
+
+            FB.setAccessToken(result["access_token"]);
+            callback(null, result["access_token"]);
+        },
+        function (result) {
+            //errors and stuff.
+            console.log(result);
+        });
+    }
+
     var askForPermissions = function (scope, callback) {
         var redirectUri = 'https://www.facebook.com/connect/login_success.html',
             loginUrl = FB.getLoginUrl({ scope: scope });
@@ -71,44 +106,10 @@
                     }
 
                     //get 2month lifetime code
-
                     var clientId = "408764209210253";
                     var clientSecret = "d30a63511ec4584729312bf197d1b1b7";
                     var shortToken = qs.access_token;
-
-                    var baseUrl = "https://graph.facebook.com/oauth/access_token?" +
-                                    "&client_id=" + clientId +
-                                    "&client_secret=" + clientSecret +
-                                    "&grant_type=fb_exchange_token" +
-                                    "&fb_exchange_token=" + shortToken;
-                    WinJS.xhr({
-                        url: baseUrl
-                    }).done(function (result) {
-
-                        //var lines = result.responseText.trim().split('\n');
-                        var body = result.responseText.split('&');
-                        var key = "";
-                        var value = "";
-                        for (key in body) {
-                            var split = body[key].split('=');
-                            if (split.length === 2) {
-                                value = split[1];
-                                if (!isNaN(value)) {
-                                    result[split[0]] = parseInt(value);
-                                } else {
-                                    result[split[0]] = value;
-                                }
-                            }
-                        }
-
-                        FB.setAccessToken(result["access_token"]);
-                        callback(null, result["access_token"]);
-                    },
-     function (result) {
-         //errors and stuff.
-         console.log(result);
-
-     });
+                    _getAccessToken(clientId, clientSecret, shortToken, callback);
 
                 }, function error(err) {
                     console.log('Error Number: ' + err.number);
@@ -174,7 +175,7 @@
 
     var getDetailedShows = function (showList, callback) {
         for (var i in showList) {
-            FB.api('/' + showList[i].id, { fields: 'about, description, genre, release_date, starring, website, name, cover' }, function (response) {
+            FB.api('/' + showList[i].id, { fields: 'about, description, genre, release_date, starring, website, name, picture, cover' }, function (response) {
                 if (!response || response.error) {
                     logResponse("Error fetching data.");
                 } else {
@@ -203,7 +204,7 @@
 
         if (eventEpisode) {
             var params = {
-                'name': "Show night! Watching " + eventEpisode.name,
+                'name': "Show night! Watching " + shows[i].title + " " + eventEpisode.name,
                 'picture': shows[i].picture,
                 'privacy_type': 'SECRET',
                 'location': event.location,

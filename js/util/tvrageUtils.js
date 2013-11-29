@@ -41,10 +41,9 @@
                 epObj.network = response_obj['Network'];
                 epObj.runtime = response_obj['Runtime'];
                 episodes.push(epObj);
-
             }
-            ep = response_obj['Next Episode'];
 
+            ep = response_obj['Next Episode'];
             if (ep) {
                 ep += "^" + response_obj['RFC3339'];
                 var epObj = _splitEpisode(ep);
@@ -52,20 +51,14 @@
                 epObj.runtime = response_obj['Runtime'];
                 episodes.push(epObj);
             }
-
-          
             callback(episodes);
         },
         function (result) {
             //errors and stuff.
-
         });
     }
 
     WinJS.Namespace.define("App.tvrage.utils", {
         getEpisodes: _getEpisodes
     });
-
-
 })();
-

@@ -47,8 +47,11 @@
             var image_link, title, url, season, episode, air_date, description;
             for (var i = 0, child_count = episodes.children.length - 1; i < child_count; i++) {
                 episodeNode = episodes.children[i];
-                title_cont = episodeNode.getElementsByClassName(_title_class_name)[0];
 
+                if (!episodeNode.children || episodeNode.children.length == 0)
+                    continue;
+
+                title_cont = episodeNode.getElementsByClassName(_title_class_name)[0];
                 if (!title_cont.firstElementChild)
                     continue;
 
@@ -78,12 +81,9 @@
                     url: url
                 });
             }
-
-
         },
         function (result) {
             //errors and stuff.
-
         });
     }
 
@@ -91,7 +91,4 @@
         getEpisodes: _getEpisodes,
         getVideo: _getVideo
     });
-
-
 })();
-

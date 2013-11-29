@@ -1,5 +1,4 @@
 ﻿(function () {
-
     "use strict";
 
     var Notifications = Windows.UI.Notifications;
@@ -17,29 +16,7 @@
         // Create a toast, then create a ToastNotifier object
         // to send the toast.
         var toasty = content.createNotification();
-
-       
-            notificationManager.createToastNotifier().show(toasty);
-        
-        //var template = notifications.ToastTemplateType.toastText02;
-        //var toastXml = notifications.ToastNotificationManager.getTemplateContent(template);
-
-        //var toastTextElements = toastXml.getElementsByTagName("text");
-        //toastTextElements[0].appendChild(toastXml.createTextNode("Hello World!"));
-
-
-
-        //var toastNode = toastXml.selectSingleNode("/toast");
-        //toastNode.setAttribute("duration", "long");
-
-        //toastXml.selectSingleNode("/toast").setAttribute("launch", '{"type":"toast","param1":"12345","param2":"67890"}');
-
-        //var toast = new notifications.ToastNotification(toastXml);
-
-
-        //var toastNotifier = notifications.ToastNotificationManager.createToastNotifier();
-        //toastNotifier.show(toast);
-
+        notificationManager.createToastNotifier().show(toasty);
     }
 
     var _sendTileTextNotification = function (text) {
@@ -111,6 +88,4 @@
         showCount: _showCount,
         totalShows: _totalShows
     });
-
-
 })();

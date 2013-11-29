@@ -183,8 +183,13 @@
         App.tile.utils.displayTextToast({ "head": "Syncing episodes", "body": "Please be patient." });
 
         FBUtils.getShows(function (fb_show) {
+            //var cover = "";
+            //if (fb_show.cover) cover = fb_show.cover.source;
+            //else if (fb_show.picture && !fb_show.picture.data.is_silhouette)
+            //    cover = fb_show.picture.data.url || "";
 
-            var new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source, fb_show.id);
+            var cover = (fb_show.cover) ? fb_show.cover.source : fb_show.pict;
+            var new_show = new Show(fb_show.name, fb_show.description, cover, fb_show.id);
             if (fb_show.genre == undefined) {
                 fb_show.genre = "No Category";
             }
