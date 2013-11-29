@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="Remind-a-Show" Logo="images\logo.jpg" SmallLogo="images\logo.png" Description="Remind-a-Show" ForegroundText="light" BackgroundColor="#464646" ToastCapable="true">
+      <VisualElements DisplayName="Remind-a-Show" Logo="images\logo.jpg" SmallLogo="images\logo.png" Description="Remind-a-Show" ForegroundText="light" BackgroundColor="#2E8DEF" ToastCapable="true">
         <DefaultTile ShowName="allLogos" WideLogo="images\WideLogo.jpg" />
-        <SplashScreen Image="images\splash-sdk.png" />
+        <SplashScreen Image="images\splash-sdk.png" BackgroundColor="#000000" />
       </VisualElements>
       <Extensions>
         <Extension Category="windows.search" />
