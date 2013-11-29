@@ -2,7 +2,9 @@
 
     var calendar = App.Calendar;
     var tvrageUtils = App.tvrage.utils;
+    var tvcomUtils = App.tvcom.utils;
     var FBUtils = App.fb.utils;
+    var tileUtils = App.tile.utils;
     var Show = App.Show;
     var Episode = App.Episode;
 
@@ -99,19 +101,10 @@
             }
         }
 
+        _get_tvrage_episodes(new_show);
+        _get_tvcom_episodes(new_show);
+
         return new_show;
-    }
-
-
-    for (category in _raw_shows) {
-        raw_show_list = _raw_shows[category];
-        for (i in raw_show_list) {
-            temp_show = _getShowByName(raw_show_list[i].title);
-            temp_show.category = category;
-
-            _categories[category].shows.push(temp_show);
-            _shows.push(temp_show);
-        }
     }
 
     var _subscribeListForAdd = function (list) {
@@ -122,15 +115,79 @@
         }
     }
 
+
+    var _get_tvrage_episodes = function (new_show) {
+        tvrageUtils.getEpisodes(new_show.title, function (episodes) {
+            for (var i in episodes) {
+                var ep = episodes[i];
+
+                var episodeDate = ep.startDate;
+                try {
+                    var q = Date.parse(ep.startDate);
+                    if (!q) {
+                        datum = ep.startDate;
+                        var utcHour = datum.split('T');
+                        if (utcHour[1].split("-").length > 1) {
+                            var hoursToChange = utcHour[1].split("-")[1];
+                            var toReplacePrefix = "-";
+
+                        }
+                        else {
+                            var hoursToChange = utcHour[1].split("+")[1];
+                            var toReplacePrefix = "+";
+                        }
+                        var toReplace = toReplacePrefix + hoursToChange;
+                        if (hoursToChange.split(":")[0].length == 1) newHour = "0" + hoursToChange.split(":")[0] + ":" + hoursToChange.split(":")[1];
+                        datum = datum.replace(toReplace, toReplacePrefix + newHour);
+
+                        ep.startDate = datum;
+                        var utcDateFromIso = Date.parse(datum);
+                        episodeDate = utcDateFromIso;
+                        var endDate = utcDateFromIso + parseInt(ep.runtime) * 60 * 1000;
+                        var date = new Date(endDate);
+                        endDate = date.toISOString();
+                        //var eppDate3 = episodeDate.format("isoUtcDateTime");
+
+                    }
+
+                }
+                catch (ex) {
+                    var a = ex;
+                }
+
+                ep.endDate = endDate;
+
+                if ((episodeDate - Date.now()) >= 0) {
+                    ep.showName = new_show.title;
+                    ep.description = "s" + ep.season + "e" + ep.episode + " - " + ep.name;
+                    new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, "", ep.startDate, ep.endDate));
+                    tileUtils.sendTileTextNotification("Succesfully synced episodes for " + new_show.title);
+                    calendar.addEvent(ep);
+
+                    //calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
+                }
+            }
+        });
+    }
+
+    var _get_tvcom_episodes = function (new_show) {
+        tvcomUtils.getEpisodes(new_show.title, function (episode) {
+            var ep = new Episode(episode.season, episode.episode, episode.name, episode.description);
+            ep.url = episode.url;
+            ep.image = episode.image;
+            new_show.addEpisode(ep);
+
+        });
+    }
+
     var _updateShowsFromFacebook = function () {
         if (retrievedFromFacebook)
             return;
 
         FBUtils.getShows(function (fb_show) {
             var new_show = new Show(fb_show.name, fb_show.description, fb_show.cover.source, fb_show.id);
-
             if (fb_show.genre == undefined) {
-                fb_show.genre = "Undefined";
+                fb_show.genre = "No Category";
             }
             new_show.category = fb_show.genre;
 
@@ -147,63 +204,15 @@
                 subscribers[i].push(new_show);
             }
 
-            tvrageUtils.getEpisodes(fb_show.name, function (episodes) {
-                for (var i in episodes) {
-                    var ep = episodes[i];
+            
 
+            _get_tvrage_episodes(new_show);
+            _get_tvcom_episodes(new_show);
 
-                    var dateNow = Date.now();
-                    var episodeDate = ep.startDate;
-                    try {
-                        var q = Date.parse(ep.startDate);
-                        if (!q) {
-                            datum = ep.startDate;
-                            var utcHour = datum.split('T');
-                            if (utcHour[1].split("-").length > 1) {
-                                var hoursToChange = utcHour[1].split("-")[1];
-                                var toReplacePrefix = "-";
-
-                            }
-                            else {
-                                var hoursToChange = utcHour[1].split("+")[1];
-                                var toReplacePrefix = "+";
-                            }
-                            var toReplace = toReplacePrefix + hoursToChange;
-                            if (hoursToChange.split(":")[0].length == 1) newHour = "0" + hoursToChange.split(":")[0] + ":" + hoursToChange.split(":")[1];
-                            datum = datum.replace(toReplace, toReplacePrefix + newHour);
-
-                            ep.startDate = datum;
-                            var utcDateFromIso = Date.parse(datum);
-                            episodeDate = utcDateFromIso;
-                            var endDate = utcDateFromIso + parseInt(ep.runtime) * 60 * 1000;
-                            var date = new Date(endDate);
-                            endDate = date.toISOString();
-                            //var eppDate3 = episodeDate.format("isoUtcDateTime");
-
-                        }
-
-                    }
-                    catch (ex) {
-                        var a = ex;
-                    }
-
-                    ep.endDate = endDate;
-
-                    if ((episodeDate - Date.now()) >= 0) {
-                        ep.showName = fb_show.name;
-                        ep.description = "s" + ep.season + "e" + ep.episode + " - " + ep.name;
-                        new_show.addEpisode(new Episode(ep.season, ep.episode, ep.name, "", ep.startDate, ep.endDate));
-                        sendTileTextNotification("Succesfully synced episodes for " + new_show.title);
-                        calendar.addEvent(ep);
-
-                        //calendar.addEvent(fb_show.name, "s" + ep.season + "e" + ep.episode + " - " + ep.name, ep.startDate, ep.endDate, ep.network);
-                    }
-                }
-            });
 
         });
 
-        sendTileTextNotification("Succesfully synced with facebook.");
+        tileUtils.sendTileTextNotification("Succesfully synced with facebook.");
     }
 
     var _clearShows = function () {
@@ -238,84 +247,74 @@
         }
     }
 
-   
+    var _createEvent = function (name) {
+
+        var shows = _getShows();
+
+        for (i in shows) {
+            if (shows[i].title == name) {
+                var eps = shows[i].episodes;
+                for (ep in eps) {
+                    var startDate = Date.parse(eps[ep].startDate);
+                    if (startDate - Date.now() >= 0) {
+                        var eventEpisode = eps[ep];
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        if (eventEpisode) {
+            params = {
+                'name': "Show night! Watching " + eventEpisode.name,
+                'picture': shows[i].picture,
+                'privacy_type': 'PRIVATE',
+                'location':'My place',
+                //or 'picture':"@some_img_url_at_my_server",
+                //or '@picture':"@some_img_url_at_my_server",
+                //or 'source':"some_img_url_at_my_server",
+                //or 'source':"@some_img_url_at_my_server",
+                //or 'picture':"some_img_path_at_my_server",
+                //or 'picture':"@some_img_path_at_my_server",
+                //or '@picture':"@some_img_path_at_my_server",
+                //or 'source':"some_img_path_at_my_server",
+                //or 'source':"@some_img_path_at_my_server",
+                'start_time': eventEpisode.startDate
+            };
+
+
+            FB.api('/me/events', 'post', params, function (response) {
+                if (!response || response.error) {
+                    var a = 2;
+                    //  log(response.error);
+                } else {
+                    var a = 2;
+                    //log('Post ID: ' + response.id);
+                }
+            });
+        }
+
+    }
+
     var _addShowToFavourites = function (name) {
 
         //  App.Calendar.listEvents();
         var shows = _getShows();
 
+
         for (i in shows) {
             if (shows[i].title == name) {
                 temp_show = new Show(shows[i].title, shows[i].description, shows[i].picture, shows[i].showId);
+
                 temp_show.category = "Favorites";
                 _categories["Favorites"].shows.push(temp_show);
                 for (var i in subscribers) {
                     subscribers[i].push(temp_show);
                 }
-                sendTileTextNotification(temp_show.title + " added to favourites.");
+                tileUtils.sendTileTextNotification(temp_show.title + " added to favourites.");
                 return;
             }
         }
-    }
-
-    function sendTileTextNotification(text) {
-        // Note: This sample contains an additional project, NotificationsExtensions.
-        // NotificationsExtensions exposes an object model for creating notifications, but you can also modify the xml
-        // of the notification directly. See the additional function sendTileTextNotificationWithXmlManipulation to see how
-        // to do it by modifying Xml directly, or sendTileTextNotificationWithStringManipulation to see how to do it
-        // by modifying strings directly
-
-        // create the wide template
-        var tileContent = NotificationsExtensions.TileContent.TileContentFactory.createTileWideText03();
-        tileContent.textHeadingWrap.text = text;
-
-        // Users can resize tiles to square or wide.
-        // Apps can choose to include only square assets (meaning the app's tile can never be wide), or
-        // include both wide and square assets (the user can resize the tile to square or wide).
-        // Apps cannot include only wide assets.
-
-        // Apps that support being wide should include square tile notifications since users
-        // determine the size of the tile.
-
-        // create the square template and attach it to the wide template
-        var squareTileContent = NotificationsExtensions.TileContent.TileContentFactory.createTileSquareText04();
-        squareTileContent.textBodyWrap.text = text;
-        tileContent.squareContent = squareTileContent;
-
-        // send the notification
-        Windows.UI.Notifications.TileUpdateManager.createTileUpdaterForApplication().update(tileContent.createNotification());
-
-        WinJS.log && WinJS.log(tileContent.getContent(), "sample", "status");
-    }
-
-    function sendTileLocalImageNotificationWithXmlManipulation() {
-        // get a XML DOM version of a specific template by using getTemplateContent
-        var tileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(Windows.UI.Notifications.TileTemplateType.tileWideImageAndText01);
-
-        // get the text attributes for this template and fill them in
-        var tileTextAttributes = tileXml.getElementsByTagName("text");
-        tileTextAttributes[0].appendChild(tileXml.createTextNode("This tile notification uses ms-appx images"));
-
-        // get the image attributes for this template and fill them in
-        var tileImageAttributes = tileXml.getElementsByTagName("image");
-        tileImageAttributes[0].setAttribute("src", "ms-appx:///images/redWide.png");
-
-        // fill in a version of the square template returned by GetTemplateContent
-        var squareTileXml = Windows.UI.Notifications.TileUpdateManager.getTemplateContent(Windows.UI.Notifications.TileTemplateType.tileSquareImage);
-        var squareTileImageAttributes = squareTileXml.getElementsByTagName("image");
-        squareTileImageAttributes[0].setAttribute("src", "ms-appx:///images/graySquare.png");
-
-        // include the square template into the notification
-        var node = tileXml.importNode(squareTileXml.getElementsByTagName("binding").item(0), true);
-        tileXml.getElementsByTagName("visual").item(0).appendChild(node);
-
-        // create the notification from the XML
-        var tileNotification = new Windows.UI.Notifications.TileNotification(tileXml);
-
-        // send the notification to the app's application tile
-        Windows.UI.Notifications.TileUpdateManager.createTileUpdaterForApplication().update(tileNotification);
-
-        WinJS.log && WinJS.log(tileXml.getXml(), "sample", "status");
     }
 
     function _getShow(name) {
@@ -323,6 +322,17 @@
         for (var i in shows)
             if (shows[i].title == name)
                 return shows[i];
+    }
+
+    for (category in _raw_shows) {
+        raw_show_list = _raw_shows[category];
+        for (i in raw_show_list) {
+            temp_show = _getShowByName(raw_show_list[i].title);
+            temp_show.category = category;
+
+            _categories[category].shows.push(temp_show);
+            _shows.push(temp_show);
+        }
     }
 
     WinJS.Namespace.define("App.DataSource", {
@@ -333,9 +343,9 @@
         getShow: _getShow,
         addShowToFavourites: _addShowToFavourites,
         subscribeListForAdd: _subscribeListForAdd,
-        updateShowsFromFacebook: _updateShowsFromFacebook,
-        sendTileTextNotification: sendTileTextNotification
+        updateShowsFromFacebook: _updateShowsFromFacebook
     });
+
 
 
 })();

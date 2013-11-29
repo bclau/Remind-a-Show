@@ -32,8 +32,10 @@
         function (title, description, picture, showId) {
 
             this.title = title;
-            this.description = description;
             this.showId = showId;
+
+            this.description = description || "";
+
             if (picture)
                 this.picture = picture;
             else
@@ -70,11 +72,12 @@
             this.season = season;
             this.number = number;
             this.name = name;
-            this.description = description;
-            this.link = "http://www.youtube.com/watch?v=Y9zte8wU3-s";
             this.startDate = startDate;
-            this.endDate = endDate;
 
+            this.endDate = endDate;
+            this.description = description || "";
+            this.url = "";
+            this.image = "";
         },
         // instance members
         {

@@ -4,6 +4,21 @@
     var tvCom = App.tvcom.utils;
 
 
+    var _loadEpisode = function (url) {
+        if (!url)
+            return;
+
+        tvCom.getVideo(url, function (div) {
+            var a = 4 + 5;
+        });
+    }
+
+    var _createEventHandler = function (url) {
+        return function () {
+            _loadEpisode(url);
+        };
+    }
+
     WinJS.UI.Pages.define("/pages/itemDetail/itemDetail.html", {
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
@@ -25,7 +40,6 @@
             element.querySelector("article .item-content").innerHTML = item.description;
             element.querySelector(".content").focus();
 
-
             var list = element.querySelector(".itemslist");
 
             for (var i in item.episodes) {
@@ -41,13 +55,24 @@
                 t.innerText = "Name: " + ep.name;
                 temp.appendChild(t);
 
-                t = document.createElement("div");
-                t.innerText = ep.description;
+                t = document.createElement("br");
                 temp.appendChild(t);
 
-                t = document.createElement("a");
-                t.href = ep.link;
-                t.innerText = "Click here to watch it!";
+                t = document.createElement("div");
+                t.innerHTML = ep.description;
+                temp.appendChild(t);
+
+                if (ep.url) {
+                    t = document.createElement("br");
+                    temp.appendChild(t);
+                    t = document.createElement("a");
+                    t.href = "#";
+                    t.onclick = _createEventHandler(ep.url);
+                    t.innerText = "Click here to watch it!";
+                    temp.appendChild(t);
+                }
+
+                t = document.createElement("hr");
                 temp.appendChild(t);
 
                 list.appendChild(temp);
@@ -126,7 +151,6 @@
 
             });
         });
-
 
 
 
