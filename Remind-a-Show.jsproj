@@ -48,7 +48,8 @@
     <TargetPlatformVersion>8.0</TargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageCertificateKeyFile>Remind-a-Show_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>1291FA24CF0C615DAC4CA92E4BD8FEDDAE1735AF</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>E7FE8005733BDA17983A3E093AB55167516B81A9</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
@@ -61,9 +62,10 @@
     <Content Include="css\images\icons-18-white.png" />
     <Content Include="css\images\icons-36-black.png" />
     <Content Include="css\images\icons-36-white.png" />
-    <Content Include="css\jquery.mobile-1.2.0.css" />
+    <Content Include="html\PrivacyPolicy.html" />
     <Content Include="html\FacebookConnect2.html" />
     <Content Include="html\FacebookConnect.html" />
+    <Content Include="images\Logo.scale-100.jpg" />
     <Content Include="images\logo.scale-100.png" />
     <Content Include="images\splash-sdk.scale-100.png" />
     <Content Include="images\storeLogo-sdk.scale-180.png" />
@@ -82,12 +84,12 @@
     <Content Include="js\util\tileUtils.js" />
     <Content Include="js\util\tvComUtils.js" />
     <Content Include="js\util\tvrageUtils.js" />
+    <None Include="Remind-a-Show_StoreKey.pfx" />
     <Content Include="sample-utils\footer.html" />
     <Content Include="sample-utils\header.html" />
     <Content Include="sample-utils\sample-utils.css" />
     <Content Include="sample-utils\sample-utils.js" />
     <Content Include="sample-utils\scenario-select.html" />
-    <None Include="Remind-a-Show_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="pages\itemDetail\itemDetail.css" />
     <Content Include="pages\itemDetail\itemDetail.html" />
@@ -99,7 +101,6 @@
     <Content Include="pages\groupedItems\groupedItems.html" />
     <Content Include="pages\groupedItems\groupedItems.js" />
     <Content Include="default.html" />
-    <None Include="Remind-a-Show_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="LiveSDKHTML, Version=5.5" />

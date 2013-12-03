@@ -12,18 +12,14 @@
     var subscribers = [];
 
     var _categories = {
-        "Favorites": {
-            name: "Favorites",
-            shows: []
-        },
-        "Watched": {
-            name: "Watched",
+        "Recommended": {
+            name: "Recommended",
             shows: []
         }
     };
 
     var _raw_shows = {
-        Favorites: [
+        Recommended: [
             {
                 title: "The Big Bang Theory",
                 description: "The Big Bang Theory is awesome",
@@ -33,9 +29,7 @@
                 title: "Suits",
                 description: "Suits is awesome",
                 picture: "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn1/12948_529633363782965_750167263_n.jpg"
-            }],
-
-        Watched: [
+            },
             {
                 title: "Breaking Bad",
                 description: "Breaking Bad is awesome",
@@ -255,11 +249,39 @@
                 temp_show = new Show(shows[i].title, shows[i].description, shows[i].picture, shows[i].showId);
 
                 temp_show.category = "Favorites";
+                if (!_categories["Favorites"])
+                    _categories["Favorites"] = {
+                        name: "Favorites",
+                    shows: []
+                }
                 _categories["Favorites"].shows.push(temp_show);
                 for (var i in subscribers) {
                     subscribers[i].push(temp_show);
                 }
                 tileUtils.sendTileTextNotification(temp_show.title + " added to favourites.");
+                return;
+            }
+        }
+    }
+
+    var _removeShowToFavourites = function (name) {
+        //  App.Calendar.listEvents();
+        var shows = _getShows();
+        for (i in shows) {
+            if (shows[i].title == name) {
+                temp_show = new Show(shows[i].title, shows[i].description, shows[i].picture, shows[i].showId);
+
+                temp_show.category = "Favorites";
+                if (!_categories["Favorites"])
+                    _categories["Favorites"] = {
+                        name: "Favorites",
+                        shows: []
+                    }
+                _categories["Favorites"].shows.pop(temp_show);
+                for (var i in subscribers) {
+                    subscribers[i].pop(temp_show);
+                }
+                tileUtils.sendTileTextNotification(temp_show.title + " removed from favourites.");
                 return;
             }
         }
@@ -278,6 +300,7 @@
             temp_show = _getShowByName(raw_show_list[i].title);
             temp_show.category = category;
 
+            if (!_categories[category]) _categories[category] = { shows: [], name: category };
             _categories[category].shows.push(temp_show);
             _shows.push(temp_show);
         }
@@ -289,7 +312,9 @@
         getShowsByCategory: _getShowsByCategory,
         getShows: _getShows,
         getShow: _getShow,
-        addShowToFavourites: _addShowToFavourites,
+        //addShowToFavourites: _addShowToFavourites,
+        //removeShowToFavourites: _removeShowToFavourites,
+
         subscribeListForAdd: _subscribeListForAdd,
         updateShowsFromFacebook: _updateShowsFromFacebook
     });

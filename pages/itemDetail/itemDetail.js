@@ -120,8 +120,8 @@
         var appBarDiv = document.getElementById("scenarioAppBar");
         var appBar = document.getElementById("scenarioAppBar").winControl;
         // Add event listeners
-        document.getElementById("cmdAdd").addEventListener("click", doClickAdd, false);
-        document.getElementById("cmdRemove").addEventListener("click", doClickRemove, false);
+        //document.getElementById("cmdAdd").addEventListener("click", doClickAdd, false);
+        //document.getElementById("cmdRemove").addEventListener("click", doClickRemove, false);
 
         //document.getElementById("cmdEventAdd").addEventListener("click", doClickEvent, false);
         document.getElementById("createEventButton").addEventListener("click", function (e) {
@@ -167,9 +167,10 @@
                         var selectedFriends = [];
                         items.forEach(function (item) {
                             observableEvent.selectedFriends.push(item.data.uid);
-                            //selectedFriends.push(item.data);
+                            selectedFriends.push(item.data.uid);
+                           
                         });
-
+                        eventDetails.selectedFriends = selectedFriends;
 
                     });
                 });
@@ -205,6 +206,8 @@
     function doClickRemove() {
         var ghead = document.getElementsByTagName('h2');
         var ts = ghead[0].innerText;
+        App.DataSource.removeShowToFavourites(ts);
+        window.focus();
 
     }
 

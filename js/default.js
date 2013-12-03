@@ -91,6 +91,8 @@
         e.detail.applicationcommands = { "connect": { title: "Connect to Facebook", href: "/html/FacebookConnect2.html", name: "aa" } };
         WinJS.UI.SettingsFlyout.populateSettings(e);
 
+        e.detail.applicationcommands = { "privacy": { title: "Privacy Policy", href: "/html/PrivacyPolicy.html", name: "ppolicy" } };
+        WinJS.UI.SettingsFlyout.populateSettings(e);
 
     };
 
