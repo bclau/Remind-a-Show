@@ -3,5 +3,11 @@
   <PropertyGroup>
     <ReferenceCachePath>E:\Temp\Remind-a-Show_refcache</ReferenceCachePath>
     <ShowAllFiles>false</ShowAllFiles>
+    <AppxPackageIsForStore>True</AppxPackageIsForStore>
+    <AppxShowAllApps>True</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>neutral</AppxBuildConfigurationSelection>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

@@ -354,6 +354,13 @@
       <ReservedName>Remind-a-Show</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <AccountPackageIdentityNames />
-  <PackageInfoList LandingUrl="https://appdev.microsoft.com:443/StorePortals/Developer/Catalog/ReleaseAnchor/d3998d3c-e0a6-4453-9396-f9c5583adb2c" />
+  <AccountPackageIdentityNames>
+    <MainPackageIdentityName>11169DebreczeniGergoPFA.GerryTwesting</MainPackageIdentityName>
+  </AccountPackageIdentityNames>
+  <PackageInfoList LandingUrl="https://appdev.microsoft.com:443/StorePortals/Developer/Catalog/ReleaseAnchor/d3998d3c-e0a6-4453-9396-f9c5583adb2c">
+    <PackageInfo>
+      <PackageArchitecture>neutral</PackageArchitecture>
+      <PackageMaxArchitectureVersion>0.5.0.5</PackageMaxArchitectureVersion>
+    </PackageInfo>
+  </PackageInfoList>
 </StoreAssociation>

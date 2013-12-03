@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="11169DebreczeniGergoPFA.Remind-a-Show" Version="1.0.0.0" Publisher="CN=D91CFA2B-571A-4CA5-B828-541B2B833889" />
+  <Identity Name="11169DebreczeniGergoPFA.Remind-a-Show" Version="0.7.0.1" Publisher="CN=D91CFA2B-571A-4CA5-B828-541B2B833889" />
   <Properties>
     <DisplayName>Remind-a-Show</DisplayName>
     <PublisherDisplayName>Debreczeni Gergo PFA</PublisherDisplayName>
